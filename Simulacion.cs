@@ -33,9 +33,9 @@ namespace Ejercicio27
         public static float AcumTiempoEsperaReloj { get; set; }
         public static int ContRelojes { get; set; }
         public static float AcumTiempoRelojSistema { get; set; }
-        private List<Reloj> ListaRelojes { get; set; }
+        public static List<Reloj> ListaRelojes { get; set; }
         public static List<Evento> ListaEventos { get; set; }
-
+        public static double? TiempoValorSobranteNormal { get; set;}
         private dynamic EventoActual { get; set; }
 
 
@@ -92,11 +92,13 @@ namespace Ejercicio27
                 rndLlegadaReloj = "",
                 tiempoLlegadaReloj = "",
                 llegadaReloj = "",
-                rnd1finControlReloj = "",
-                rnd2finControlReloj = "",
-                tiempo1finControlReloj = "",
-                tiempo2finControlReloj = "",
-                finControlReloj = "",
+                rnd1FinControlReloj = "",
+                rnd2FinControlReloj = "",
+                tiempo1FinControlReloj = "",
+                tiempo2FinControlReloj = "",
+                finControlRelojEmp1 = "",
+                finControlRelojEmp2 = "",
+                finControlRelojEmp3 = "",
                 rndResultadoControl = "",
                 resultadoControl = "",
                 estadoEmpleado1 = Empleado1.Estado.ToString(),
@@ -158,9 +160,10 @@ namespace Ejercicio27
                     vE.acumOcupacionEmpleado2 = Empleado2.AcumOcupacion.ToString();
                     vE.estadoEmpleado3 = Empleado3.Estado.ToString();
                     vE.acumOcupacionEmpleado3 = Empleado3.AcumOcupacion.ToString();
-                    vE.colaRelojes = string.Join(",", ColaRelojes.Select(r => r.ToString()));
+                    vE.colaRelojes = ColaRelojes.Count.ToString();
                     vE.acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString();
                     vE.contRelojes = ContRelojes.ToString();
+                    
                     vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
                     ListaVectoresEstado.Add(vE);
 
@@ -190,8 +193,8 @@ namespace Ejercicio27
             string ruta = "E:\\Proyectos\\sim_final_tp_2\\ResultadosSimulacion.csv";
 
             List<string> csv = new List<string>();
-            string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3";
-            string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,ACUM_TIEMPO_RELOJ_SISTEMA";
+            string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3";
+            string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,ACUM_TIEMPO_RELOJ_SISTEMA";
             /* for (int i = 1; i <= cantidadAlumnos; i++)
             {
                 header += ", ALUMNO_" + i;
@@ -202,7 +205,7 @@ namespace Ejercicio27
 
             foreach (VectorEstado vecE in ListaVectoresEstado)
             {
-                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1finControlReloj}, {vecE.rnd2finControlReloj}, {vecE.tiempo1finControlReloj}, {vecE.tiempo2finControlReloj}, {vecE.finControlReloj}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.acumTiempoRelojSistema}";
+                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1FinControlReloj}, {vecE.rnd2FinControlReloj}, {vecE.tiempo1FinControlReloj}, {vecE.tiempo2FinControlReloj}, {vecE.finControlRelojEmp1}, {vecE.finControlRelojEmp2}, {vecE.finControlRelojEmp3}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.acumTiempoRelojSistema}";
 
                 csv.Add(linea);
             }
@@ -249,11 +252,13 @@ namespace Ejercicio27
         public string rndLlegadaReloj { get; set; }
         public string tiempoLlegadaReloj { get; set; }
         public string llegadaReloj { get; set; }
-        public string rnd1finControlReloj { get; set; }
-        public string rnd2finControlReloj { get; set; }
-        public string tiempo1finControlReloj { get; set; }
-        public string tiempo2finControlReloj { get; set; }
-        public string finControlReloj { get; set; }
+        public string rnd1FinControlReloj { get; set; }
+        public string rnd2FinControlReloj { get; set; }
+        public string tiempo1FinControlReloj { get; set; }
+        public string tiempo2FinControlReloj { get; set; }
+        public string finControlRelojEmp1 { get; set; }
+        public string finControlRelojEmp2 { get; set; }
+        public string finControlRelojEmp3 { get; set; }
         public string rndResultadoControl { get; set; }
         public string resultadoControl { get; set; }
         public string estadoEmpleado1 { get; set; }
@@ -275,11 +280,13 @@ namespace Ejercicio27
         string rndLlegadaReloj,
         string tiempoLlegadaReloj,
         string llegadaReloj,
-        string rnd1finControlReloj,
-        string rnd2finControlReloj,
-        string tiempo1finControlReloj,
-        string tiempo2finControlReloj,
-        string finControlReloj,
+        string rnd1FinControlReloj,
+        string rnd2FinControlReloj,
+        string tiempo1FinControlReloj,
+        string tiempo2FinControlReloj,
+        string finControlRelojEmp1,
+        string finControlRelojEmp2,
+        string finControlRelojEmp3,
         string rndResultadoControl,
         string resultadoControl,
         string estadoEmpleado1,
@@ -301,11 +308,13 @@ namespace Ejercicio27
             this.rndLlegadaReloj = rndLlegadaReloj;
             this.tiempoLlegadaReloj = tiempoLlegadaReloj;
             this.llegadaReloj = llegadaReloj;
-            this.rnd1finControlReloj = rnd1finControlReloj;
-            this.rnd2finControlReloj = rnd2finControlReloj;
-            this.tiempo1finControlReloj = tiempo1finControlReloj;
-            this.tiempo2finControlReloj = tiempo2finControlReloj;
-            this.finControlReloj = finControlReloj;
+            this.rnd1FinControlReloj = rnd1FinControlReloj;
+            this.rnd2FinControlReloj = rnd2FinControlReloj;
+            this.tiempo1FinControlReloj = tiempo1FinControlReloj;
+            this.tiempo2FinControlReloj = tiempo2FinControlReloj;
+            this.finControlRelojEmp1 = finControlRelojEmp1;
+            this.finControlRelojEmp2 = finControlRelojEmp2;
+            this.finControlRelojEmp3 = finControlRelojEmp3;
             this.rndResultadoControl = rndResultadoControl;
             this.resultadoControl = resultadoControl;
             this.estadoEmpleado1 = estadoEmpleado1;

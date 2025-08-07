@@ -4,8 +4,6 @@ public abstract class Evento
 {
     public string Nombre { get; set; }
 
-    public double TiempoNeto { get; set; }
-
     public double TiempoFinal { get; set; }
 
 

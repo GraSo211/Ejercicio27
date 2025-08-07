@@ -21,13 +21,25 @@ namespace Ejercicio27
             this.AcumOcupacion = 0;
         }
 
-        public void PonerseTrabajar()
+        public void PonerseTrabajar(ref VectorEstado vE, int nroEmpleado)
         {
             this.Estado = "Ocupado";
+            switch (nroEmpleado)
+            {
+                case 1:
+                    vE.estadoEmpleado1 = this.Estado;
+                    break;
+                case 2:
+                    vE.estadoEmpleado2 = this.Estado;
+                    break;
+                case 3:
+                    vE.estadoEmpleado3 = this.Estado;
+                    break;
+            }
 
         }
 
-        public void PonerseLibre(float acumOcupacion)
+        public void PonerseLibre(float acumOcupacion, ref VectorEstado vE)
         {
             this.Estado = "Libre";
             this.AcumOcupacion += acumOcupacion;

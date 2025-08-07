@@ -4,6 +4,9 @@ using Ejercicio27;
 
 public class EventoInit : Evento
 {
+    public double TiempoNeto { get; set; }
+
+    
 
     public EventoInit(string nombre) : base(nombre)
     {
