@@ -74,7 +74,7 @@ namespace Ejercicio27
             ContRelojes = 0;
             AcumTiempoRelojSistema = 0;
 
-
+            TiempoValorSobranteNormal = null;
         }
 
 
