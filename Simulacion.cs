@@ -128,7 +128,7 @@ namespace Ejercicio27
                 
                 EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
                 // actualizar reloj
-                RelojSimulacion = RelojSimulacion + EventoActual.TiempoFinal;
+                RelojSimulacion = EventoActual.TiempoFinal;
                 // resolvemos evento
                 ListaEventos.Remove(EventoActual);
                 EventoActual.ResolverEvento(ref vE);

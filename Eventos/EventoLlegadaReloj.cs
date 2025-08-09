@@ -25,7 +25,7 @@ public class EventoLlegadaReloj : Evento
         Random random = new Random();
         Rnd = Math.Truncate(random.NextDouble() * 100) / 100;
         TiempoNeto = Math.Truncate(-Simulacion.LLEGADARELOJMEDIA * Math.Log(1 - Rnd) * 100) / 100;
-        TiempoFinal = Math.Truncate(Simulacion.RelojSimulacion + TiempoNeto * 100) / 100;
+        TiempoFinal = Math.Truncate((Simulacion.RelojSimulacion + TiempoNeto) * 100) / 100;
 
 
         vE.rndLlegadaReloj = Rnd.ToString();
