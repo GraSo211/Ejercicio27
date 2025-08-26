@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejercicio70
+namespace Ejercicio27
 {
     internal class Reloj
     {
@@ -14,24 +14,14 @@ namespace Ejercicio70
         public float tiempo_llegada { get; set; }
 
 
-        public Alumno(int id)
+        public Reloj(int id, string estado, float tiempo_llegada)
         {
             this.id = id;
-            this.estado = "En_Examen";
+            this.estado = estado;
+            this.tiempo_llegada = tiempo_llegada;
         }
 
-        // Constructor copia para clonado
-        public Alumno(Alumno otro)
-        {
-            this.id = otro.id;
-            this.estado = otro.estado;
-        }
-
-        // Metodo cloanr
-        public Alumno Clone()
-        {
-            return new Alumno(this);
-        }
+        
 
 
     }

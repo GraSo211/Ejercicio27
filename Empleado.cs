@@ -4,21 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejercicio70
+namespace Ejercicio27
 {
-    internal class Profesor
+    internal class Empleado
     {
         int id { get; set; }
         string nombre { get; set; }
         public string estado { get; set; }
-        public Cola cola { get; set; }
+        public float acum_ocupacion { get; set; }
 
-        public Profesor(int id, string nombre,  Cola cola)
+        public Empleado(int id, string nombre)
         {
             this.id = id;
             this.nombre = nombre;
             this.estado = "Libre";
-            this.cola = cola;
+            this.acum_ocupacion = 0;
         }
     }
 }

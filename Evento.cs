@@ -4,19 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ejercicio70
+namespace Ejercicio27
 {
     internal abstract class Evento
     {
         public string nombre { get; set; }
         protected float rnd { get; set; }
-        protected float entreTiempo { get; set; }
-        public float reloj { get; set; }
-        protected List<Alumno> listaAlumnos { get; set; }
-        protected Alumno alumno { get; set; }
-        protected Profesor adjunto1 { get; set; }
-        protected Profesor adjunto2 { get; set; }
-        protected Profesor titularCatedra { get; set; }
+        protected float tiempo { get; set; }
+        public float llegadaReloj { get; set; }
+       
+        protected Empleado alumno { get; set; }
+        
 
         public Evento(string nombre, float reloj, List<Alumno> listaAlumnos, Alumno alumno, Profesor adjunto1, Profesor adjunto2, Profesor titularCatedra)
         {

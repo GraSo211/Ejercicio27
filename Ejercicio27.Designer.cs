@@ -1,4 +1,4 @@
-﻿namespace Ejercicio70
+﻿namespace Ejercicio27
 {
     partial class SIMULACION
     {
