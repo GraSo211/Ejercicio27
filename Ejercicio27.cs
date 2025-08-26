@@ -54,18 +54,15 @@ namespace Ejercicio27
 
         private void btnIniciarSimulacion_Click(object sender, EventArgs e)
         {
-            int cantidadAlumnos = int.Parse(this.InputCantAlumnos.Text);
-            float InputFinPract = float.Parse(this.InputFinPract.Text);
-            float InputFinCorrecPractA = float.Parse(this.InputFinCorrecPractA.Text);
-            float InputFinCorrecPractB = float.Parse(this.InputFinCorrecPractB.Text);
-            float InputFinCorrecTeo = float.Parse(this.InputFinCorrecTeo.Text);
-            float InputPorcAprobPract = float.Parse(this.InputPorcAprobPract.Text);
-            float InputPorcAprobTeo = float.Parse(this.InputPorcAprobTeo.Text);
-            int horaFinPract = int.Parse(this.InputHoraTerminarPract.Text);
-            int horaFinExamen = int.Parse(this.InputHoraTerminarExamen.Text);
+            float LlegadaRelojMedia = float.Parse(this.inputLlegadaReloj.Text);
+            float FinControlRelojMedia = float.Parse(this.InputFinControlRelojMedia.Text);
+            float FinControlRelojDE = float.Parse(this.InputFinControlRelojDE.Text);
+            float PorcAprobControl = float.Parse(this.InputPorcAprobReloj.Text);
+            float MomentoMostrarSim = float.Parse(this.InputMomentoMostrarSim.Text);
+            int CantIteracionMostrar = int.Parse(this.InputCantIterMostrar.Text);
 
-            Simulacion simulacion = new Simulacion(cantidadAlumnos, InputFinPract, InputFinCorrecPractA, InputFinCorrecPractB, InputFinCorrecTeo, InputPorcAprobPract, InputPorcAprobTeo, horaFinPract, horaFinExamen );
-            simulacion.Simular();
+            //Simulacion simulacion = new Simulacion(cantidadAlumnos, InputFinPract, InputFinCorrecPractA, InputFinCorrecPractB, InputFinCorrecTeo, InputPorcAprobPract, InputPorcAprobTeo, horaFinPract, horaFinExamen );
+            //simulacion.Simular();
 
         }
 
@@ -75,6 +72,16 @@ namespace Ejercicio27
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AclaracionFinCorrecPractA_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AclaracionFinPract_Click(object sender, EventArgs e)
         {
 
         }

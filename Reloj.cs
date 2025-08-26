@@ -20,9 +20,5 @@ namespace Ejercicio27
             this.Estado = estado;
             this.TiempoLlegada= tiempoLlegada;
         }
-
-        
-
-
     }
 }
