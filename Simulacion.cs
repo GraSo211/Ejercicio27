@@ -1,4 +1,5 @@
 ﻿using CsvHelper;
+using Ejercicio27;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
-namespace Ejercicio27
+namespace Ejercicio2 7
 {
     internal class Simulacion
     {
@@ -26,11 +27,11 @@ namespace Ejercicio27
 
 
         private float reloj { get; set; }
-        private Profesor adjunto1 { get; set; }
-        private Profesor adjunto2 { get; set; }
-        private Profesor titularCatedra { get; set; }
-        private Cola colaAdjuntos { get; set; }
-        private Cola colaTitular { get; set; }
+        private Empleado empleado1 { get; set; }
+        private Empleado empleado2 { get; set; }
+        private Empleado empleado3 { get; set; }
+        private Cola colaRelojes { get; set; }
+       
         public static float acumTiempoTotalExamenAlumnosAprobados { get; set; }
         public static int contAlumnosAprobados { get; set; }
         private List<Alumno> listaAlumnos { get; set; }

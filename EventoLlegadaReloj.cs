@@ -1,4 +1,6 @@
 
+using Ejercicio27;
+
 public class EventoLlegadaReloj
 {
     public string nombre { get; set; }
@@ -6,6 +8,6 @@ public class EventoLlegadaReloj
     protected float tiempo { get; set; }
     public float llegadaReloj { get; set; }
 
-    protected Empleado alumno { get; set; }
+    protected Empleado empleado { get; set; }
 
 }

@@ -6,19 +6,31 @@ using System.Threading.Tasks;
 
 namespace Ejercicio27
 {
-    internal class Empleado
+    public class Empleado
     {
-        int id { get; set; }
-        string nombre { get; set; }
-        public string estado { get; set; }
-        public float acum_ocupacion { get; set; }
+        int Id { get; set; }
+        string Nombre { get; set; }
+        public string Estado { get; set; }
+        public float AcumOcupacion { get; set; }
 
         public Empleado(int id, string nombre)
         {
-            this.id = id;
-            this.nombre = nombre;
-            this.estado = "Libre";
-            this.acum_ocupacion = 0;
+            this.Id = id;
+            this.Nombre = nombre;
+            this.Estado = "Libre";
+            this.AcumOcupacion = 0;
+        }
+
+        public void PonerseTrabajar()
+        {
+            this.Estado = "Ocupado";
+
+        }
+
+        public void PonerseLibre(float acumOcupacion)
+        {
+            this.Estado = "Libre";
+            this.AcumOcupacion += acumOcupacion;
         }
     }
 }

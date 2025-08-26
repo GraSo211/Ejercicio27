@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Ejercicio27
 {
-    internal class Reloj
+    public class Reloj
     {
-        public int id { get; set; }
-        public string estado { get; set; }
+        public int Id { get; set; }
+        public string Estado { get; set; }
 
-        public float tiempo_llegada { get; set; }
+        public float TiempoLlegada { get; set; }
 
 
-        public Reloj(int id, string estado, float tiempo_llegada)
+        public Reloj(int id, string estado, float tiempoLlegada)
         {
-            this.id = id;
-            this.estado = estado;
-            this.tiempo_llegada = tiempo_llegada;
+            this.Id = id;
+            this.Estado = estado;
+            this.TiempoLlegada= tiempoLlegada;
         }
 
         
