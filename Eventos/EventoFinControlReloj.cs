@@ -2,12 +2,12 @@
 using System.Text.RegularExpressions;
 using Ejercicio27;
 
-public class EventoFinControlReloj
+public class EventoFinControlReloj:Evento
 {
-    public string nombre { get; set; }
-    protected float rnd { get; set; }
-    protected float tiempo { get; set; }
-    public float llegadaReloj { get; set; }
+ 
+    protected float Rnd { get; set; }
+
+    public float FinControl { get; set; }
 
 
     protected Reloj reloj { get; set; }

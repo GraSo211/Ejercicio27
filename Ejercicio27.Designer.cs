@@ -1,4 +1,4 @@
-﻿﻿namespace Ejercicio27
+﻿namespace Ejercicio27
 {
     partial class SIMULACION
     {
@@ -48,6 +48,9 @@
             AclaracionCantIterMostrar = new Label();
             CantIterMostrar = new Label();
             InputCantIterMostrar = new TextBox();
+            AclaracionCantIteracionesRealizar = new Label();
+            CantIteracionesRealizar = new Label();
+            InputCantIteracionesRealizar = new TextBox();
             SuspendLayout();
             // 
             // titulo
@@ -205,7 +208,7 @@
             AclaracionMomentoMostrarSim.AutoSize = true;
             AclaracionMomentoMostrarSim.Font = new Font("Montserrat", 12F, FontStyle.Bold);
             AclaracionMomentoMostrarSim.ForeColor = SystemColors.ControlDark;
-            AclaracionMomentoMostrarSim.Location = new Point(629, 288);
+            AclaracionMomentoMostrarSim.Location = new Point(629, 320);
             AclaracionMomentoMostrarSim.Name = "AclaracionMomentoMostrarSim";
             AclaracionMomentoMostrarSim.Size = new Size(91, 25);
             AclaracionMomentoMostrarSim.TabIndex = 25;
@@ -215,7 +218,7 @@
             // 
             MomentoMostrarSim.AutoSize = true;
             MomentoMostrarSim.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            MomentoMostrarSim.Location = new Point(35, 288);
+            MomentoMostrarSim.Location = new Point(35, 320);
             MomentoMostrarSim.Name = "MomentoMostrarSim";
             MomentoMostrarSim.Size = new Size(486, 25);
             MomentoMostrarSim.TabIndex = 24;
@@ -225,7 +228,7 @@
             // InputMomentoMostrarSim
             // 
             InputMomentoMostrarSim.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            InputMomentoMostrarSim.Location = new Point(523, 285);
+            InputMomentoMostrarSim.Location = new Point(523, 317);
             InputMomentoMostrarSim.Name = "InputMomentoMostrarSim";
             InputMomentoMostrarSim.Size = new Size(100, 27);
             InputMomentoMostrarSim.TabIndex = 23;
@@ -236,7 +239,7 @@
             AclaracionCantIterMostrar.AutoSize = true;
             AclaracionCantIterMostrar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
             AclaracionCantIterMostrar.ForeColor = SystemColors.ControlDark;
-            AclaracionCantIterMostrar.Location = new Point(469, 331);
+            AclaracionCantIterMostrar.Location = new Point(469, 363);
             AclaracionCantIterMostrar.Name = "AclaracionCantIterMostrar";
             AclaracionCantIterMostrar.Size = new Size(101, 25);
             AclaracionCantIterMostrar.TabIndex = 28;
@@ -246,7 +249,7 @@
             // 
             CantIterMostrar.AutoSize = true;
             CantIterMostrar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            CantIterMostrar.Location = new Point(35, 334);
+            CantIterMostrar.Location = new Point(35, 366);
             CantIterMostrar.Name = "CantIterMostrar";
             CantIterMostrar.Size = new Size(300, 25);
             CantIterMostrar.TabIndex = 27;
@@ -256,17 +259,53 @@
             // InputCantIterMostrar
             // 
             InputCantIterMostrar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            InputCantIterMostrar.Location = new Point(357, 331);
+            InputCantIterMostrar.Location = new Point(357, 363);
             InputCantIterMostrar.Name = "InputCantIterMostrar";
             InputCantIterMostrar.Size = new Size(100, 27);
             InputCantIterMostrar.TabIndex = 26;
             InputCantIterMostrar.Text = "10000";
+            // 
+            // AclaracionCantIteracionesRealizar
+            // 
+            AclaracionCantIteracionesRealizar.AutoSize = true;
+            AclaracionCantIteracionesRealizar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
+            AclaracionCantIteracionesRealizar.ForeColor = SystemColors.ControlDark;
+            AclaracionCantIteracionesRealizar.Location = new Point(469, 277);
+            AclaracionCantIteracionesRealizar.Name = "AclaracionCantIteracionesRealizar";
+            AclaracionCantIteracionesRealizar.Size = new Size(101, 25);
+            AclaracionCantIteracionesRealizar.TabIndex = 31;
+            AclaracionCantIteracionesRealizar.Text = "(Cantidad)";
+         
+            // 
+            // CantIteracionesRealizar
+            // 
+            CantIteracionesRealizar.AutoSize = true;
+            CantIteracionesRealizar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
+            CantIteracionesRealizar.Location = new Point(35, 280);
+            CantIteracionesRealizar.Name = "CantIteracionesRealizar";
+            CantIteracionesRealizar.Size = new Size(303, 25);
+            CantIteracionesRealizar.TabIndex = 30;
+            CantIteracionesRealizar.Text = "Cantidad de Iteraciones a Realizar:";
+            
+            // 
+            // InputCantIteracionesRealizar
+            // 
+            InputCantIteracionesRealizar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
+            InputCantIteracionesRealizar.Location = new Point(357, 277);
+            InputCantIteracionesRealizar.Name = "InputCantIteracionesRealizar";
+            InputCantIteracionesRealizar.Size = new Size(100, 27);
+            InputCantIteracionesRealizar.TabIndex = 29;
+            InputCantIteracionesRealizar.Text = "100000";
+            InputCantIteracionesRealizar.TextChanged += textBox1_TextChanged_1;
             // 
             // SIMULACION
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1284, 738);
+            Controls.Add(AclaracionCantIteracionesRealizar);
+            Controls.Add(CantIteracionesRealizar);
+            Controls.Add(InputCantIteracionesRealizar);
             Controls.Add(AclaracionCantIterMostrar);
             Controls.Add(CantIterMostrar);
             Controls.Add(InputCantIterMostrar);
@@ -315,5 +354,8 @@
         private Label AclaracionCantIterMostrar;
         private Label CantIterMostrar;
         private TextBox InputCantIterMostrar;
+        private Label AclaracionCantIteracionesRealizar;
+        private Label CantIteracionesRealizar;
+        private TextBox InputCantIteracionesRealizar;
     }
 }

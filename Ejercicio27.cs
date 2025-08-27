@@ -58,11 +58,12 @@ namespace Ejercicio27
             float FinControlRelojMedia = float.Parse(this.InputFinControlRelojMedia.Text);
             float FinControlRelojDE = float.Parse(this.InputFinControlRelojDE.Text);
             float PorcAprobControl = float.Parse(this.InputPorcAprobReloj.Text);
+            int CantIteracionesRealizar = int.Parse(this.InputCantIteracionesRealizar.Text);
             float MomentoMostrarSim = float.Parse(this.InputMomentoMostrarSim.Text);
             int CantIteracionMostrar = int.Parse(this.InputCantIterMostrar.Text);
 
-            //Simulacion simulacion = new Simulacion(cantidadAlumnos, InputFinPract, InputFinCorrecPractA, InputFinCorrecPractB, InputFinCorrecTeo, InputPorcAprobPract, InputPorcAprobTeo, horaFinPract, horaFinExamen );
-            //simulacion.Simular();
+            Simulacion simulacion = new Simulacion(LlegadaRelojMedia, FinControlRelojMedia, FinControlRelojDE, PorcAprobControl, CantIteracionesRealizar, MomentoMostrarSim, CantIteracionMostrar);
+            simulacion.Simular();
 
         }
 
@@ -82,6 +83,11 @@ namespace Ejercicio27
         }
 
         private void AclaracionFinPract_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
 
         }
