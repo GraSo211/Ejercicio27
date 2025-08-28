@@ -30,30 +30,55 @@ public class EventoFinControlReloj : Evento
     public override void GenerarEvento(ref VectorEstado vE)
     {
         // Generar los numeros pero verificar que si en la variablde de simualcion no es null entonces hay que usar el numero anterior por lo que no recalculamos lso rnd ni nada y devolveriamos solo ese 
-        Random random = new Random();
-        Rnd1 = Math.Truncate(random.NextDouble() * 100) / 100;
-        Rnd2 = Math.Truncate(random.NextDouble() * 100) / 100;
-        TiempoNeto1 = Math.Truncate((Math.Sqrt(-2 * Math.Log(1 - Rnd1)) * Math.Cos(2 * Math.PI * Rnd2) * Simulacion.FINCONTROLRELOJDE + Simulacion.FINCONTROLRELOJMEDIA) * 100) / 100;
-        TiempoNeto2 = Math.Truncate((Math.Sqrt(-2 * Math.Log(1 - Rnd1)) * Math.Sin(2 * Math.PI * Rnd2) * Simulacion.FINCONTROLRELOJDE + Simulacion.FINCONTROLRELOJMEDIA) * 100) / 100;
-        TiempoFinal = Math.Truncate(Simulacion.RelojSimulacion + TiempoNeto1 * 100) / 100;
+        // SITUACION NO TENEMOS NUMEROS
+        if (Simulacion.TiempoValorSobranteNormal == null)
+        {
 
-        vE.rnd1FinControlReloj = Rnd1.ToString();
-        vE.rnd2FinControlReloj = Rnd2.ToString();
-        vE.tiempo1FinControlReloj = TiempoNeto1.ToString();
-        vE.tiempo2FinControlReloj = TiempoNeto2.ToString();
-        if (Simulacion.Empleado1.Estado == "Libre")
-        {
-            vE.finControlRelojEmp1 = TiempoFinal.ToString();
+            Random random = new Random();
+            Rnd1 = Math.Truncate(random.NextDouble() * 100) / 100;
+            Rnd2 = Math.Truncate(random.NextDouble() * 100) / 100;
+            TiempoNeto1 = Math.Truncate((Math.Sqrt(-2 * Math.Log(1 - Rnd1)) * Math.Cos(2 * Math.PI * Rnd2) * Simulacion.FINCONTROLRELOJDE + Simulacion.FINCONTROLRELOJMEDIA) * 100) / 100;
+            TiempoNeto2 = Math.Truncate((Math.Sqrt(-2 * Math.Log(1 - Rnd1)) * Math.Sin(2 * Math.PI * Rnd2) * Simulacion.FINCONTROLRELOJDE + Simulacion.FINCONTROLRELOJMEDIA) * 100) / 100;
+            TiempoFinal = Math.Truncate((Simulacion.RelojSimulacion + TiempoNeto1) * 100) / 100;
+
+            vE.rnd1FinControlReloj = Rnd1.ToString();
+            vE.rnd2FinControlReloj = Rnd2.ToString();
+            vE.tiempo1FinControlReloj = TiempoNeto1.ToString();
+            vE.tiempo2FinControlReloj = TiempoNeto2.ToString();
+            if (Simulacion.Empleado1.Estado == "Libre")
+            {
+                vE.finControlRelojEmp1 = TiempoFinal.ToString();
+            }
+            else if (Simulacion.Empleado2.Estado == "Libre")
+            {
+                vE.finControlRelojEmp2 = TiempoFinal.ToString();
+            }
+            else if (Simulacion.Empleado3.Estado == "Libre")
+            {
+                vE.finControlRelojEmp3 = TiempoFinal.ToString();
+            }
+            Simulacion.TiempoValorSobranteNormal = TiempoNeto2;
         }
-        else if (Simulacion.Empleado2.Estado == "Libre")
+
+
+        else
         {
-            vE.finControlRelojEmp2 = TiempoFinal.ToString();
+            // SITUACION YA GENERAMOS NUMEROS Y NOS QUEDA EL 2DO
+            TiempoFinal = Math.Truncate((Simulacion.RelojSimulacion + Simulacion.TiempoValorSobranteNormal.Value) * 100) / 100;
+            Simulacion.TiempoValorSobranteNormal = null;
+                        if (Simulacion.Empleado1.Estado == "Libre")
+            {
+                vE.finControlRelojEmp1 = TiempoFinal.ToString();
+            }
+            else if (Simulacion.Empleado2.Estado == "Libre")
+            {
+                vE.finControlRelojEmp2 = TiempoFinal.ToString();
+            }
+            else if (Simulacion.Empleado3.Estado == "Libre")
+            {
+                vE.finControlRelojEmp3 = TiempoFinal.ToString();
+            }
         }
-        else if (Simulacion.Empleado3.Estado == "Libre")
-        {
-            vE.finControlRelojEmp3 = TiempoFinal.ToString();
-        }
-        
     }
 
 }
