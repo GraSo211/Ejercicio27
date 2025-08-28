@@ -5,11 +5,11 @@ using Ejercicio27;
 public class EventoFinControlReloj:Evento
 {
  
-    protected float Rnd { get; set; }
+    public float Rnd { get; set; }
 
     public float FinControl { get; set; }
 
-    protected Reloj Reloj { get; set; }
+    public Reloj Reloj { get; set; }
 
     public EventoFinControlReloj(string nombre, List<Evento> listaEventos, float finControl, Reloj reloj) : base(nombre, listaEventos)
     {

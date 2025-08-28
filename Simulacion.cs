@@ -87,13 +87,15 @@ namespace Ejercicio27
             // Creamos el evento inicial
             EventoInit eventoInit = new EventoInit("init", ListaEventos);
             ListaEventos.Add(eventoInit);
-
-            while (idVectorEstado <= CANTITERACIONESREALIZAR + 1)
+        Console.WriteLine(ListaEventos.Count);
+            while (idVectorEstado <= /* CANTITERACIONESREALIZAR */ + 1)
             {
 
                 // Comienza el sistema
                 // Comenzamos revisando cual es el evento que hay que resolver, para ello buscamos el que suceda mas proximo al reloj actual
+                Console.WriteLine("---------------------------------------------------");
                 EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
+                Console.WriteLine($"Evento a resolver: {EventoActual.Nombre} - Tiempo Final: {EventoActual.TiempoFinal} - Reloj Simulacion: {RelojSimulacion}");
                 ListaEventos.Remove(EventoActual);
                 EventoActual.ResolverEvento();
 
@@ -110,6 +112,33 @@ namespace Ejercicio27
                 {
 
                     //TODO: AÑADIR VECTOR ESTADO A MOSTRAR
+                    VectorEstado ve = new VectorEstado
+                    {
+                        id = idVectorEstado,
+                        eventoActual = EventoActual.Nombre,
+                        reloj = RelojSimulacion.ToString(),
+                        rndLlegadaReloj = (EventoActual).Rnd.ToString(),
+                        tiempoLlegadaReloj = (EventoActual).TiempoNeto.ToString(),
+                        llegadaReloj = (EventoActual).LlegadaReloj.ToString(),
+                        rndfinControlReloj = (EventoActual).Rnd.ToString(),
+                        tiempofinControlReloj = (EventoActual).TiempoNeto.ToString(),
+                        finControlReloj = (EventoActual).FinControl.ToString(),
+                        rndResultadoControl = "",
+                        resultadoControl = "",
+                        estadoEmpleado1 = Simulacion.Empleado1.Estado.ToString(),
+                        acumOcupacionEmpleado1 = Simulacion.Empleado1.AcumOcupacion.ToString(),
+                        estadoEmpleado2 = Simulacion.Empleado2.Estado.ToString(),
+                        acumOcupacionEmpleado2 = Simulacion.Empleado2.AcumOcupacion.ToString(),
+                        estadoEmpleado3 = Simulacion.Empleado3.Estado.ToString(),
+                        acumOcupacionEmpleado3 = Simulacion.Empleado3.AcumOcupacion.ToString(),
+                        colaRelojes = "",
+                        acumTiempoEsperaReloj = Simulacion.AcumTiempoEsperaReloj.ToString(),
+                        contRelojes = Simulacion.ContRelojes.ToString(),
+                        acumTiempoRelojSistema = Simulacion.AcumTiempoRelojSistema.ToString()
+                    };
+
+
+
                     iterRestantes--;
                 }
 
@@ -146,15 +175,12 @@ namespace Ejercicio27
             csv.Add(header);
             csv.Add(subHeader);
 
-            /* foreach (VectorEstado vE in listaVectoresEstado)
+             foreach (VectorEstado vE in ListaVectoresEstado)
             {
-                string linea = $"{vE.id},{vE.eventoActual},{vE.reloj},{vE.rndfinPartePractica},{vE.tiempofinPartePractica},{vE.finfinPartePractica},{vE.rndfinCorreccionPartePracticaAdjunto1},{vE.tiempofinCorreccionPartePracticaAdjunto1},{vE.finfinCorreccionPartePracticaAdjunto1},{vE.rndfinCorreccionPartePracticaAdjunto2},{vE.tiempofinCorreccionPartePracticaAdjunto2},{vE.finfinCorreccionPartePracticaAdjunto2},{vE.rndAprobacionPartePractica},{vE.estadoAprobacionPartePractica},{vE.tiempofinCorreccionParteTeorica},{vE.finfinCorreccionParteTeorica},{vE.rndAprobacionParteTeorica},{vE.estadoAprobacionParteTeorica},{vE.horafinExamen},{vE.estadoadjunto1},{vE.estadoadjunto2},{vE.colaAdjuntos},{vE.titularCatedra},{vE.colaTitular},{vE.acumTiempoTotalExamenAlumnosAprobados},{vE.contAlumnosAprobados},";
-                foreach (Alumno a in vE.listaAlumnos)
-                {
-                    linea += $"{a.estado},";
-                }
+                string linea = $"{vE.id},{vE.eventoActual},{vE.reloj}, {vE.rndLlegadaReloj}, {vE.tiempoLlegadaReloj}, {vE.llegadaReloj}, {vE.rndfinControlReloj}, {vE.tiempofinControlReloj}, {vE.finControlReloj}, {vE.rndResultadoControl}, {vE.resultadoControl}, {vE.estadoEmpleado1}, {vE.acumOcupacionEmpleado1}, {vE.estadoEmpleado2}, {vE.acumOcupacionEmpleado2}, {vE.estadoEmpleado3}, {vE.acumOcupacionEmpleado3}, {vE.colaRelojes}, {vE.acumTiempoEsperaReloj}, {vE.contRelojes}, {vE.acumTiempoRelojSistema}";
+                
                 csv.Add(linea);
-            } */
+            } 
 
 
             // TODO: CALCUALR ESTADISCTICAS
