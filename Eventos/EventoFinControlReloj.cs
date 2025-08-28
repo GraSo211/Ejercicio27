@@ -9,15 +9,19 @@ public class EventoFinControlReloj:Evento
 
     public float FinControl { get; set; }
 
+    protected Reloj Reloj { get; set; }
 
-    protected Reloj reloj { get; set; }
-    protected Empleado empleado { get; set; }
-
-
+    public EventoFinControlReloj(string nombre, List<Evento> listaEventos, float finControl, Reloj reloj) : base(nombre, listaEventos)
+    {
+        FinControl = finControl;
+        Reloj = reloj;
+    
+    }
 
     public void generarResultadoControl()
     {
         // TODO: Implementar la lógica para generar el resultado del control
+
     }
 
 }

@@ -24,10 +24,10 @@ namespace Ejercicio27
         private List<VectorEstado> ListaVectoresEstado { get; set; }
 
 
-        private float RelojSimulacion { get; set; }
-        private Empleado Empleado1 { get; set; }
-        private Empleado Empleado2 { get; set; }
-        private Empleado Empleado3 { get; set; }
+        public static float RelojSimulacion { get; set; }
+        public static Empleado Empleado1 { get; set; }
+        public static Empleado Empleado2 { get; set; }
+        public static Empleado Empleado3 { get; set; }
         private Queue<Reloj> ColaRelojes { get; set; }
 
         public static float AcumTiempoEsperaReloj { get; set; }
@@ -85,32 +85,19 @@ namespace Ejercicio27
             int idVectorEstado = 1;
 
             // Creamos el evento inicial
-            EventoInit eventoInit = new EventoInit(0);
+            EventoInit eventoInit = new EventoInit("init", ListaEventos);
+            ListaEventos.Add(eventoInit);
 
-
-            ListaEventos.Add(EventoActual);
-
-            while (idVectorEstado <= CANTITERACIONESREALIZAR)
+            while (idVectorEstado <= CANTITERACIONESREALIZAR + 1)
             {
-                break;
+
                 // Comienza el sistema
                 // Comenzamos revisando cual es el evento que hay que resolver, para ello buscamos el que suceda mas proximo al reloj actual
-                EventoActual = ListaEventos.OrderBy(e => e.Tiempo).First();
+                EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
                 ListaEventos.Remove(EventoActual);
+                EventoActual.ResolverEvento();
 
 
-                if (EventoActual is EventoInit)
-                {
-
-                }
-                else if (EventoActual is EventoLlegadaReloj)
-                {
-
-                }
-                else
-                {
-                    // Si no es ninguno de los otros 2 es el de FIN CONTROL RELOJ
-                }
 
 
 
@@ -168,7 +155,7 @@ namespace Ejercicio27
                 }
                 csv.Add(linea);
             } */
-            
+
 
             // TODO: CALCUALR ESTADISCTICAS
             /*  csv.Add("");
