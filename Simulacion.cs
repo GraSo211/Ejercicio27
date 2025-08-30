@@ -157,6 +157,13 @@ namespace Ejercicio27
                 {
                     vE.resultadoControl = "";
                     vE.rndResultadoControl = "";
+
+
+                }
+                if (EventoActual.Nombre != "LlegadaReloj")
+                {
+                    vE.rndLlegadaReloj = "";
+                    vE.tiempoLlegadaReloj = "";
                 }
 
                 //? LOGICA DE AGREGAR EL VECTOR ESTADO A LA LISTA PARA LUEGO MOSTRARLO
