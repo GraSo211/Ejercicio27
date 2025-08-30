@@ -81,7 +81,7 @@ public class EventoLlegadaReloj : Evento
             Simulacion.ListaRelojes.Add(reloj);
         }
 
-        // Ver estado de los empleados
+        Simulacion.ContRelojes++;
 
     }
 

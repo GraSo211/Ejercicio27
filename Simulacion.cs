@@ -32,6 +32,7 @@ namespace Ejercicio27
 
         public static float AcumTiempoEsperaReloj { get; set; }
         public static int ContRelojes { get; set; }
+        public static int ContRelojesEsperaFinalizada { get; set; }
         public static float AcumTiempoRelojSistema { get; set; }
         public static List<Reloj> ListaRelojes { get; set; }
         public static List<Evento> ListaEventos { get; set; }
@@ -72,6 +73,7 @@ namespace Ejercicio27
 
             AcumTiempoEsperaReloj = 0;
             ContRelojes = 0;
+            ContRelojesEsperaFinalizada = 0;
             AcumTiempoRelojSistema = 0;
 
             TiempoValorSobranteNormal = null;
@@ -110,6 +112,7 @@ namespace Ejercicio27
                 colaRelojes = "",
                 acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString(),
                 contRelojes = ContRelojes.ToString(),
+                contRelojesEsperaFinalizada = ContRelojesEsperaFinalizada.ToString(),
                 acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString(),
                 listaRelojes = ListaRelojes
             };
@@ -186,7 +189,7 @@ namespace Ejercicio27
                     vE.colaRelojes = ColaRelojes.Count.ToString();
                     vE.acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString();
                     vE.contRelojes = ContRelojes.ToString();
-                    
+                    vE.contRelojesEsperaFinalizada = ContRelojesEsperaFinalizada.ToString();
                     vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
                     ListaVectoresEstado.Add(vE);
 
@@ -217,7 +220,7 @@ namespace Ejercicio27
 
             List<string> csv = new List<string>();
             string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3";
-            string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,ACUM_TIEMPO_RELOJ_SISTEMA";
+            string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,CONT_RELOJES_ESPERA_FINALIZADA,ACUM_TIEMPO_RELOJ_SISTEMA";
             /* for (int i = 1; i <= cantidadAlumnos; i++)
             {
                 header += ", ALUMNO_" + i;
@@ -228,7 +231,7 @@ namespace Ejercicio27
 
             foreach (VectorEstado vecE in ListaVectoresEstado)
             {
-                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1FinControlReloj}, {vecE.rnd2FinControlReloj}, {vecE.tiempo1FinControlReloj}, {vecE.tiempo2FinControlReloj}, {vecE.finControlRelojEmp1}, {vecE.finControlRelojEmp2}, {vecE.finControlRelojEmp3}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.acumTiempoRelojSistema}";
+                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1FinControlReloj}, {vecE.rnd2FinControlReloj}, {vecE.tiempo1FinControlReloj}, {vecE.tiempo2FinControlReloj}, {vecE.finControlRelojEmp1}, {vecE.finControlRelojEmp2}, {vecE.finControlRelojEmp3}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.contRelojesEsperaFinalizada} ,{vecE.acumTiempoRelojSistema}";
 
                 csv.Add(linea);
             }
