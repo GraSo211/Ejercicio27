@@ -5,16 +5,16 @@ using Ejercicio27;
 public class EventoInit : Evento
 {
 
-    public EventoInit(string nombre, List<Evento> listaEventos) : base(nombre, listaEventos)
+    public EventoInit(string nombre) : base(nombre)
     {
         TiempoNeto = 0;
     }
 
-    public override void ResolverEvento()
+    public override void ResolverEvento(ref VectorEstado vE)
     {
-        EventoLlegadaReloj llegadaReloj = new EventoLlegadaReloj("LlegadaReloj", ListaEventos);
-        llegadaReloj.GenerarEvento();
-        ListaEventos.Add(llegadaReloj);
+        EventoLlegadaReloj llegadaReloj = new EventoLlegadaReloj("LlegadaReloj");
+        llegadaReloj.GenerarEvento(ref vE);
+        Simulacion.ListaEventos.Add(llegadaReloj);
     }
 
 }

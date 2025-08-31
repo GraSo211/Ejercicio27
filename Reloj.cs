@@ -11,10 +11,10 @@ namespace Ejercicio27
         public int Id { get; set; }
         public string Estado { get; set; }
 
-        public float TiempoLlegada { get; set; }
+        public double TiempoLlegada { get; set; }
 
 
-        public Reloj(int id, string estado, float tiempoLlegada)
+        public Reloj(int id, string estado, double tiempoLlegada)
         {
             this.Id = id;
             this.Estado = estado;

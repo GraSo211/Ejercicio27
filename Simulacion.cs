@@ -24,17 +24,17 @@ namespace Ejercicio27
         private List<VectorEstado> ListaVectoresEstado { get; set; }
 
 
-        public static float RelojSimulacion { get; set; }
+        public static double RelojSimulacion { get; set; }
         public static Empleado Empleado1 { get; set; }
         public static Empleado Empleado2 { get; set; }
         public static Empleado Empleado3 { get; set; }
-        private Queue<Reloj> ColaRelojes { get; set; }
+        public static Queue<Reloj> ColaRelojes { get; set; }
 
         public static float AcumTiempoEsperaReloj { get; set; }
         public static int ContRelojes { get; set; }
         public static float AcumTiempoRelojSistema { get; set; }
         private List<Reloj> ListaRelojes { get; set; }
-        private List<Evento> ListaEventos { get; set; }
+        public static List<Evento> ListaEventos { get; set; }
 
         private dynamic EventoActual { get; set; }
 
@@ -80,24 +80,60 @@ namespace Ejercicio27
 
         public void Simular()
         {
-
+            ListaRelojes.Add(new Reloj(1,"",0));
 
             int idVectorEstado = 1;
 
+            VectorEstado vE = new VectorEstado
+            {
+                id = idVectorEstado,
+                eventoActual = "",
+                reloj = RelojSimulacion.ToString(),
+                rndLlegadaReloj = "",
+                tiempoLlegadaReloj = "",
+                llegadaReloj = "",
+                rnd1finControlReloj = "",
+                rnd2finControlReloj = "",
+                tiempo1finControlReloj = "",
+                tiempo2finControlReloj = "",
+                finControlReloj = "",
+                rndResultadoControl = "",
+                resultadoControl = "",
+                estadoEmpleado1 = Empleado1.Estado.ToString(),
+                acumOcupacionEmpleado1 = Empleado1.AcumOcupacion.ToString(),
+                estadoEmpleado2 = Empleado2.Estado.ToString(),
+                acumOcupacionEmpleado2 = Empleado2.AcumOcupacion.ToString(),
+                estadoEmpleado3 = Empleado3.Estado.ToString(),
+                acumOcupacionEmpleado3 = Empleado3.AcumOcupacion.ToString(),
+                colaRelojes = "",
+                acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString(),
+                contRelojes = ContRelojes.ToString(),
+                acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString(),
+                listaRelojes = ListaRelojes
+            };
+
+
+
             // Creamos el evento inicial
-            EventoInit eventoInit = new EventoInit("init", ListaEventos);
+            EventoInit eventoInit = new EventoInit("init");
             ListaEventos.Add(eventoInit);
-        Console.WriteLine(ListaEventos.Count);
-            while (idVectorEstado <= /* CANTITERACIONESREALIZAR */ + 1)
+            Console.WriteLine(ListaEventos.Count);
+            while (idVectorEstado <=  CANTITERACIONESREALIZAR  +1 )
             {
 
                 // Comienza el sistema
                 // Comenzamos revisando cual es el evento que hay que resolver, para ello buscamos el que suceda mas proximo al reloj actual
-                Console.WriteLine("---------------------------------------------------");
+                
                 EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
-                Console.WriteLine($"Evento a resolver: {EventoActual.Nombre} - Tiempo Final: {EventoActual.TiempoFinal} - Reloj Simulacion: {RelojSimulacion}");
+                // actualizar reloj
+                RelojSimulacion = RelojSimulacion + EventoActual.TiempoFinal;
+                // resolvemos evento
                 ListaEventos.Remove(EventoActual);
-                EventoActual.ResolverEvento();
+                EventoActual.ResolverEvento(ref vE);
+
+                
+
+                
 
 
 
@@ -112,37 +148,26 @@ namespace Ejercicio27
                 {
 
                     //TODO: AÑADIR VECTOR ESTADO A MOSTRAR
-                    VectorEstado ve = new VectorEstado
-                    {
-                        id = idVectorEstado,
-                        eventoActual = EventoActual.Nombre,
-                        reloj = RelojSimulacion.ToString(),
-                        rndLlegadaReloj = (EventoActual).Rnd.ToString(),
-                        tiempoLlegadaReloj = (EventoActual).TiempoNeto.ToString(),
-                        llegadaReloj = (EventoActual).LlegadaReloj.ToString(),
-                        rndfinControlReloj = (EventoActual).Rnd.ToString(),
-                        tiempofinControlReloj = (EventoActual).TiempoNeto.ToString(),
-                        finControlReloj = (EventoActual).FinControl.ToString(),
-                        rndResultadoControl = "",
-                        resultadoControl = "",
-                        estadoEmpleado1 = Simulacion.Empleado1.Estado.ToString(),
-                        acumOcupacionEmpleado1 = Simulacion.Empleado1.AcumOcupacion.ToString(),
-                        estadoEmpleado2 = Simulacion.Empleado2.Estado.ToString(),
-                        acumOcupacionEmpleado2 = Simulacion.Empleado2.AcumOcupacion.ToString(),
-                        estadoEmpleado3 = Simulacion.Empleado3.Estado.ToString(),
-                        acumOcupacionEmpleado3 = Simulacion.Empleado3.AcumOcupacion.ToString(),
-                        colaRelojes = "",
-                        acumTiempoEsperaReloj = Simulacion.AcumTiempoEsperaReloj.ToString(),
-                        contRelojes = Simulacion.ContRelojes.ToString(),
-                        acumTiempoRelojSistema = Simulacion.AcumTiempoRelojSistema.ToString()
-                    };
+                    vE.id = idVectorEstado;
+                    vE.eventoActual = EventoActual.Nombre;
+                    vE.reloj = RelojSimulacion.ToString();
 
-
+                    vE.estadoEmpleado1 = Empleado1.Estado.ToString();
+                    vE.acumOcupacionEmpleado1 = Empleado1.AcumOcupacion.ToString();
+                    vE.estadoEmpleado2 = Empleado2.Estado.ToString();
+                    vE.acumOcupacionEmpleado2 = Empleado2.AcumOcupacion.ToString();
+                    vE.estadoEmpleado3 = Empleado3.Estado.ToString();
+                    vE.acumOcupacionEmpleado3 = Empleado3.AcumOcupacion.ToString();
+                    vE.colaRelojes = string.Join(",", ColaRelojes.Select(r => r.ToString()));
+                    vE.acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString();
+                    vE.contRelojes = ContRelojes.ToString();
+                    vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
+                    ListaVectoresEstado.Add(vE);
 
                     iterRestantes--;
                 }
 
-                if (iterRestantes == 0)
+                if (iterRestantes == 0) 
                 {
                     break;
                 }
@@ -175,12 +200,12 @@ namespace Ejercicio27
             csv.Add(header);
             csv.Add(subHeader);
 
-             foreach (VectorEstado vE in ListaVectoresEstado)
+            foreach (VectorEstado vecE in ListaVectoresEstado)
             {
-                string linea = $"{vE.id},{vE.eventoActual},{vE.reloj}, {vE.rndLlegadaReloj}, {vE.tiempoLlegadaReloj}, {vE.llegadaReloj}, {vE.rndfinControlReloj}, {vE.tiempofinControlReloj}, {vE.finControlReloj}, {vE.rndResultadoControl}, {vE.resultadoControl}, {vE.estadoEmpleado1}, {vE.acumOcupacionEmpleado1}, {vE.estadoEmpleado2}, {vE.acumOcupacionEmpleado2}, {vE.estadoEmpleado3}, {vE.acumOcupacionEmpleado3}, {vE.colaRelojes}, {vE.acumTiempoEsperaReloj}, {vE.contRelojes}, {vE.acumTiempoRelojSistema}";
-                
+                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1finControlReloj}, {vecE.rnd2finControlReloj}, {vecE.tiempo1finControlReloj}, {vecE.tiempo2finControlReloj}, {vecE.finControlReloj}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.acumTiempoRelojSistema}";
+
                 csv.Add(linea);
-            } 
+            }
 
 
             // TODO: CALCUALR ESTADISCTICAS
@@ -216,7 +241,7 @@ namespace Ejercicio27
     }
 
 
-    internal struct VectorEstado
+    public struct VectorEstado
     {
         public int id { get; set; }
         public string eventoActual { get; set; }
@@ -224,8 +249,10 @@ namespace Ejercicio27
         public string rndLlegadaReloj { get; set; }
         public string tiempoLlegadaReloj { get; set; }
         public string llegadaReloj { get; set; }
-        public string rndfinControlReloj { get; set; }
-        public string tiempofinControlReloj { get; set; }
+        public string rnd1finControlReloj { get; set; }
+        public string rnd2finControlReloj { get; set; }
+        public string tiempo1finControlReloj { get; set; }
+        public string tiempo2finControlReloj { get; set; }
         public string finControlReloj { get; set; }
         public string rndResultadoControl { get; set; }
         public string resultadoControl { get; set; }
@@ -248,8 +275,10 @@ namespace Ejercicio27
         string rndLlegadaReloj,
         string tiempoLlegadaReloj,
         string llegadaReloj,
-        string rndfinControlReloj,
-        string tiempofinControlReloj,
+        string rnd1finControlReloj,
+        string rnd2finControlReloj,
+        string tiempo1finControlReloj,
+        string tiempo2finControlReloj,
         string finControlReloj,
         string rndResultadoControl,
         string resultadoControl,
@@ -272,8 +301,10 @@ namespace Ejercicio27
             this.rndLlegadaReloj = rndLlegadaReloj;
             this.tiempoLlegadaReloj = tiempoLlegadaReloj;
             this.llegadaReloj = llegadaReloj;
-            this.rndfinControlReloj = rndfinControlReloj;
-            this.tiempofinControlReloj = tiempofinControlReloj;
+            this.rnd1finControlReloj = rnd1finControlReloj;
+            this.rnd2finControlReloj = rnd2finControlReloj;
+            this.tiempo1finControlReloj = tiempo1finControlReloj;
+            this.tiempo2finControlReloj = tiempo2finControlReloj;
             this.finControlReloj = finControlReloj;
             this.rndResultadoControl = rndResultadoControl;
             this.resultadoControl = resultadoControl;

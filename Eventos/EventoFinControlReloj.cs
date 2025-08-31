@@ -7,13 +7,13 @@ public class EventoFinControlReloj:Evento
  
     public float Rnd { get; set; }
 
-    public float FinControl { get; set; }
+
 
     public Reloj Reloj { get; set; }
 
-    public EventoFinControlReloj(string nombre, List<Evento> listaEventos, float finControl, Reloj reloj) : base(nombre, listaEventos)
+    public EventoFinControlReloj(string nombre, Reloj reloj) : base(nombre)
     {
-        FinControl = finControl;
+
         Reloj = reloj;
     
     }

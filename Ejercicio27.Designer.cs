@@ -81,7 +81,7 @@
             inputLlegadaReloj.Name = "inputLlegadaReloj";
             inputLlegadaReloj.Size = new Size(100, 27);
             inputLlegadaReloj.TabIndex = 3;
-            inputLlegadaReloj.Text = "0.01";
+            inputLlegadaReloj.Text = "2";
             inputLlegadaReloj.TextChanged += textBox2_TextChanged;
             // 
             // AclaracionllegadaReloj
@@ -157,7 +157,7 @@
             InputFinControlRelojMedia.Name = "InputFinControlRelojMedia";
             InputFinControlRelojMedia.Size = new Size(100, 27);
             InputFinControlRelojMedia.TabIndex = 16;
-            InputFinControlRelojMedia.Text = "0,08";
+            InputFinControlRelojMedia.Text = "16";
             // 
             // AclaracionFinControlRelojDE
             // 
@@ -187,7 +187,7 @@
             InputFinControlRelojDE.Name = "InputFinControlRelojDE";
             InputFinControlRelojDE.Size = new Size(100, 27);
             InputFinControlRelojDE.TabIndex = 19;
-            InputFinControlRelojDE.Text = "0.01";
+            InputFinControlRelojDE.Text = "2";
             // 
             // btnIniciarSimulacion
             // 
