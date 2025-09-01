@@ -21,11 +21,7 @@ public class EventoFinControlReloj : Evento
         Reloj = reloj;
     }
 
-    public void generarResultadoControl()
-    {
-        // TODO: Implementar la lógica para generar el resultado del control
-
-    }
+    
 
     public override void GenerarEvento(ref VectorEstado vE)
     {
@@ -66,7 +62,7 @@ public class EventoFinControlReloj : Evento
             // SITUACION YA GENERAMOS NUMEROS Y NOS QUEDA EL 2DO
             TiempoFinal = Math.Truncate((Simulacion.RelojSimulacion + Simulacion.TiempoValorSobranteNormal.Value) * 100) / 100;
             Simulacion.TiempoValorSobranteNormal = null;
-                        if (Simulacion.Empleado1.Estado == "Libre")
+            if (Simulacion.Empleado1.Estado == "Libre")
             {
                 vE.finControlRelojEmp1 = TiempoFinal.ToString();
             }
@@ -81,5 +77,93 @@ public class EventoFinControlReloj : Evento
         }
     }
 
-}
+    public string GenerarResultadoControl(ref VectorEstado vE)
+    {
+        // TODO: Implementar la lógica para generar el resultado del control
+        Random random = new Random();
+        double rnd = Math.Truncate(random.NextDouble() * 100) / 100;
+        vE.rndResultadoControl = rnd.ToString();
+        if (Simulacion.PORCAPROBCONTROL / 100 > rnd)
+        {
+            vE.resultadoControl = "OK";
+            return "OK";
+            
+        }
+        else
+        {
+            vE.resultadoControl = "Fallado";
+            return "Fallado";
+            
+        }
+        
 
+    }
+
+    public override void ResolverEvento(ref VectorEstado vE)
+    {
+
+
+        // HAY QUE GENERAR EL RESULTADO DEL RELOJ
+        // Y ACTUALIZAR LAS VARIABLES ESTADISTICAS
+        // VER ESTADO DE LA COLA 
+        // SI ESTA VACIA SE PONE LIBRE AL EMPLEADO 
+        // SI HAY ALGO SE LO ATIENDE
+
+
+        // Liberar empleado
+        if (Reloj.Estado == "Siendo_Controlado_Emp1")
+        {
+
+            if (Simulacion.ColaRelojes.Count == 0)
+                Simulacion.Empleado1.PonerseLibre(ref vE);
+            else
+            {
+                Reloj reloj = Simulacion.ColaRelojes.Dequeue();
+                reloj.Estado = "Siendo_Controlado_Emp1";
+                EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
+                eventoFinControlReloj.GenerarEvento(ref vE);
+                Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                Simulacion.Empleado1.PonerseTrabajar(ref vE, 1);
+            }
+            string resultado = GenerarResultadoControl(ref vE);
+            Reloj.Estado = resultado;
+                
+        }
+        else if (Reloj.Estado == "Siendo_Controlado_Emp2")
+        {
+            if (Simulacion.ColaRelojes.Count == 0)
+                Simulacion.Empleado2.PonerseLibre(ref vE);
+            else
+            {
+                Reloj reloj = Simulacion.ColaRelojes.Dequeue();
+                reloj.Estado = "Siendo_Controlado_Emp2";
+                EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
+                eventoFinControlReloj.GenerarEvento(ref vE);
+                Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                Simulacion.Empleado2.PonerseTrabajar(ref vE, 2);
+            }
+            string resultado = GenerarResultadoControl(ref vE);
+            Reloj.Estado = resultado;
+            
+        }
+        else if (Reloj.Estado == "Siendo_Controlado_Emp3")
+        {
+            if (Simulacion.ColaRelojes.Count == 0)
+                Simulacion.Empleado3.PonerseLibre(ref vE );
+            else
+            {
+                Reloj reloj = Simulacion.ColaRelojes.Dequeue();
+                reloj.Estado = "Siendo_Controlado_Emp3";
+                EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
+                eventoFinControlReloj.GenerarEvento(ref vE);
+                Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                Simulacion.Empleado3.PonerseTrabajar(ref vE, 3);
+            }
+            string resultado = GenerarResultadoControl(ref vE);
+            Reloj.Estado = resultado;
+        
+        }
+
+        
+    }
+}

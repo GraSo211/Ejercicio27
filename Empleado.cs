@@ -11,7 +11,7 @@ namespace Ejercicio27
         int Id { get; set; }
         string Nombre { get; set; }
         public string Estado { get; set; }
-        public float AcumOcupacion { get; set; }
+        public double AcumOcupacion { get; set; }
 
         public Empleado(int id, string nombre)
         {
@@ -39,10 +39,10 @@ namespace Ejercicio27
 
         }
 
-        public void PonerseLibre(float acumOcupacion, ref VectorEstado vE)
+        public void PonerseLibre(ref VectorEstado vE)
         {
             this.Estado = "Libre";
-            this.AcumOcupacion += acumOcupacion;
+            
         }
     }
 }

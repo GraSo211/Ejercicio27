@@ -129,19 +129,35 @@ namespace Ejercicio27
                 EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
                 // actualizar reloj
                 RelojSimulacion = EventoActual.TiempoFinal;
+                
+
+                if (Empleado1.Estado == "Ocupado")
+                {
+                    Empleado1.AcumOcupacion += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+
+                }
+
+                if (Empleado2.Estado == "Ocupado")
+                {
+                    Empleado2.AcumOcupacion += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+
+                }
+
+                if (Empleado3.Estado == "Ocupado")
+                {
+                    Empleado3.AcumOcupacion += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+
+                }
+
                 // resolvemos evento
                 ListaEventos.Remove(EventoActual);
                 EventoActual.ResolverEvento(ref vE);
 
-                
-
-                
-
-
-
-
-
-
+                if (EventoActual.Nombre != "FinControlReloj")
+                {
+                    vE.resultadoControl = "";
+                    vE.rndResultadoControl = "";
+                }
 
                 //? LOGICA DE AGREGAR EL VECTOR ESTADO A LA LISTA PARA LUEGO MOSTRARLO
 
@@ -155,11 +171,11 @@ namespace Ejercicio27
                     vE.reloj = RelojSimulacion.ToString();
 
                     vE.estadoEmpleado1 = Empleado1.Estado.ToString();
-                    vE.acumOcupacionEmpleado1 = Empleado1.AcumOcupacion.ToString();
+                    vE.acumOcupacionEmpleado1 = (Math.Truncate(Empleado1.AcumOcupacion * 100) / 100).ToString();
                     vE.estadoEmpleado2 = Empleado2.Estado.ToString();
-                    vE.acumOcupacionEmpleado2 = Empleado2.AcumOcupacion.ToString();
+                    vE.acumOcupacionEmpleado2 = (Math.Truncate(Empleado2.AcumOcupacion * 100) / 100).ToString();
                     vE.estadoEmpleado3 = Empleado3.Estado.ToString();
-                    vE.acumOcupacionEmpleado3 = Empleado3.AcumOcupacion.ToString();
+                    vE.acumOcupacionEmpleado3 = (Math.Truncate(Empleado3.AcumOcupacion * 100) / 100).ToString();
                     vE.colaRelojes = ColaRelojes.Count.ToString();
                     vE.acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString();
                     vE.contRelojes = ContRelojes.ToString();
