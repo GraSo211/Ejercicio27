@@ -293,6 +293,7 @@ namespace Ejercicio27
         public string colaRelojes { get; set; }
         public string acumTiempoEsperaReloj { get; set; }
         public string contRelojes { get; set; }
+        public string contRelojesEsperaFinalizada { get; set; }
         public string acumTiempoRelojSistema { get; set; }
         public List<Reloj> listaRelojes { get; set; }
 
@@ -321,6 +322,7 @@ namespace Ejercicio27
         string colaRelojes,
         string acumTiempoEsperaReloj,
         string contRelojes,
+        string contRelojesEsperaFinalizada,
         string acumTiempoRelojSistema,
         List<Reloj> listaRelojes
     )
@@ -349,6 +351,7 @@ namespace Ejercicio27
             this.colaRelojes = colaRelojes;
             this.acumTiempoEsperaReloj = acumTiempoEsperaReloj;
             this.contRelojes = contRelojes;
+            this.contRelojesEsperaFinalizada = contRelojesEsperaFinalizada;
             this.acumTiempoRelojSistema = acumTiempoRelojSistema;
             this.listaRelojes = listaRelojes;
         }
