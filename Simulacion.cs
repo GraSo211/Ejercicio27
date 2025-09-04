@@ -231,8 +231,11 @@ namespace Ejercicio27
 
             foreach (VectorEstado vecE in ListaVectoresEstado)
             {
-                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1FinControlReloj}, {vecE.rnd2FinControlReloj}, {vecE.tiempo1FinControlReloj}, {vecE.tiempo2FinControlReloj}, {vecE.finControlRelojEmp1}, {vecE.finControlRelojEmp2}, {vecE.finControlRelojEmp3}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.contRelojesTerminados} ,{vecE.acumTiempoRelojSistema}";
-
+                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj},{vecE.rndLlegadaReloj},{vecE.tiempoLlegadaReloj},{vecE.llegadaReloj},{vecE.rnd1FinControlReloj},{vecE.rnd2FinControlReloj},{vecE.tiempo1FinControlReloj},{vecE.tiempo2FinControlReloj},{vecE.finControlRelojEmp1},{vecE.finControlRelojEmp2},{vecE.finControlRelojEmp3},{vecE.rndResultadoControl},{vecE.resultadoControl},{vecE.estadoEmpleado1},{vecE.acumOcupacionEmpleado1},{vecE.estadoEmpleado2},{vecE.acumOcupacionEmpleado2},{vecE.estadoEmpleado3},{vecE.acumOcupacionEmpleado3},{vecE.colaRelojes},{vecE.acumTiempoEsperaReloj},{vecE.contRelojes},{vecE.contRelojesTerminados},{vecE.acumTiempoRelojSistema}";
+                foreach (Reloj r in vecE.listaRelojes)
+                {
+                    linea += $"{r.Estado},{r.TiempoLlegada}";
+                }
                 csv.Add(linea);
             }
 
