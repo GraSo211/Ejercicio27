@@ -119,7 +119,7 @@ public class EventoFinControlReloj : Evento
             else
             {
                 Reloj reloj = Simulacion.ColaRelojes.Dequeue();
-                Simulacion.ContRelojesEsperaFinalizada++;
+                
                 reloj.Estado = "Siendo_Controlado_Emp1";
                 EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
                 eventoFinControlReloj.GenerarEvento(ref vE);
@@ -137,7 +137,7 @@ public class EventoFinControlReloj : Evento
             else
             {
                 Reloj reloj = Simulacion.ColaRelojes.Dequeue();
-                Simulacion.ContRelojesEsperaFinalizada++;
+                
                 reloj.Estado = "Siendo_Controlado_Emp2";
                 EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
                 eventoFinControlReloj.GenerarEvento(ref vE);
@@ -155,7 +155,7 @@ public class EventoFinControlReloj : Evento
             else
             {
                 Reloj reloj = Simulacion.ColaRelojes.Dequeue();
-                Simulacion.ContRelojesEsperaFinalizada++;
+                
                 reloj.Estado = "Siendo_Controlado_Emp3";
                 EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
                 eventoFinControlReloj.GenerarEvento(ref vE);
@@ -164,9 +164,9 @@ public class EventoFinControlReloj : Evento
             }
             string resultado = GenerarResultadoControl(ref vE);
             Reloj.Estado = resultado;
-        
+            
         }
-
-        
+        Simulacion.ContRelojesTerminados++;
+        Simulacion.AcumTiempoRelojSistema += Simulacion.RelojSimulacion - Reloj.TiempoLlegada;
     }
 }

@@ -30,10 +30,10 @@ namespace Ejercicio27
         public static Empleado Empleado3 { get; set; }
         public static Queue<Reloj> ColaRelojes { get; set; }
 
-        public static float AcumTiempoEsperaReloj { get; set; }
+        public static double AcumTiempoEsperaReloj { get; set; }
         public static int ContRelojes { get; set; }
-        public static int ContRelojesEsperaFinalizada { get; set; }
-        public static float AcumTiempoRelojSistema { get; set; }
+        public static int ContRelojesTerminados { get; set; }
+        public static double AcumTiempoRelojSistema { get; set; }
         public static List<Reloj> ListaRelojes { get; set; }
         public static List<Evento> ListaEventos { get; set; }
         public static double? TiempoValorSobranteNormal { get; set;}
@@ -73,7 +73,7 @@ namespace Ejercicio27
 
             AcumTiempoEsperaReloj = 0;
             ContRelojes = 0;
-            ContRelojesEsperaFinalizada = 0;
+            ContRelojesTerminados = 0;
             AcumTiempoRelojSistema = 0;
 
             TiempoValorSobranteNormal = null;
@@ -112,7 +112,7 @@ namespace Ejercicio27
                 colaRelojes = "",
                 acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString(),
                 contRelojes = ContRelojes.ToString(),
-                contRelojesEsperaFinalizada = ContRelojesEsperaFinalizada.ToString(),
+                contRelojesTerminados = ContRelojesTerminados.ToString(),
                 acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString(),
                 listaRelojes = ListaRelojes
             };
@@ -189,14 +189,14 @@ namespace Ejercicio27
                     vE.colaRelojes = ColaRelojes.Count.ToString();
                     vE.acumTiempoEsperaReloj = AcumTiempoEsperaReloj.ToString();
                     vE.contRelojes = ContRelojes.ToString();
-                    vE.contRelojesEsperaFinalizada = ContRelojesEsperaFinalizada.ToString();
+                    vE.contRelojesTerminados = ContRelojesTerminados.ToString();
                     vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
                     ListaVectoresEstado.Add(vE);
 
                     iterRestantes--;
                 }
 
-                if (iterRestantes == 0) 
+                if (iterRestantes == 0)
                 {
                     break;
                 }
@@ -220,7 +220,7 @@ namespace Ejercicio27
 
             List<string> csv = new List<string>();
             string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3";
-            string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,CONT_RELOJES_ESPERA_FINALIZADA,ACUM_TIEMPO_RELOJ_SISTEMA";
+            string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,CONT_RELOJES_TERMINADOS,ACUM_TIEMPO_RELOJ_SISTEMA";
             /* for (int i = 1; i <= cantidadAlumnos; i++)
             {
                 header += ", ALUMNO_" + i;
@@ -231,7 +231,7 @@ namespace Ejercicio27
 
             foreach (VectorEstado vecE in ListaVectoresEstado)
             {
-                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1FinControlReloj}, {vecE.rnd2FinControlReloj}, {vecE.tiempo1FinControlReloj}, {vecE.tiempo2FinControlReloj}, {vecE.finControlRelojEmp1}, {vecE.finControlRelojEmp2}, {vecE.finControlRelojEmp3}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.contRelojesEsperaFinalizada} ,{vecE.acumTiempoRelojSistema}";
+                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj}, {vecE.rndLlegadaReloj}, {vecE.tiempoLlegadaReloj}, {vecE.llegadaReloj}, {vecE.rnd1FinControlReloj}, {vecE.rnd2FinControlReloj}, {vecE.tiempo1FinControlReloj}, {vecE.tiempo2FinControlReloj}, {vecE.finControlRelojEmp1}, {vecE.finControlRelojEmp2}, {vecE.finControlRelojEmp3}, {vecE.rndResultadoControl}, {vecE.resultadoControl}, {vecE.estadoEmpleado1}, {vecE.acumOcupacionEmpleado1}, {vecE.estadoEmpleado2}, {vecE.acumOcupacionEmpleado2}, {vecE.estadoEmpleado3}, {vecE.acumOcupacionEmpleado3}, {vecE.colaRelojes}, {vecE.acumTiempoEsperaReloj}, {vecE.contRelojes}, {vecE.contRelojesTerminados} ,{vecE.acumTiempoRelojSistema}";
 
                 csv.Add(linea);
             }
@@ -296,7 +296,7 @@ namespace Ejercicio27
         public string colaRelojes { get; set; }
         public string acumTiempoEsperaReloj { get; set; }
         public string contRelojes { get; set; }
-        public string contRelojesEsperaFinalizada { get; set; }
+        public string contRelojesTerminados { get; set; }
         public string acumTiempoRelojSistema { get; set; }
         public List<Reloj> listaRelojes { get; set; }
 
@@ -325,7 +325,7 @@ namespace Ejercicio27
         string colaRelojes,
         string acumTiempoEsperaReloj,
         string contRelojes,
-        string contRelojesEsperaFinalizada,
+        string contRelojesTerminados,
         string acumTiempoRelojSistema,
         List<Reloj> listaRelojes
     )
@@ -354,7 +354,7 @@ namespace Ejercicio27
             this.colaRelojes = colaRelojes;
             this.acumTiempoEsperaReloj = acumTiempoEsperaReloj;
             this.contRelojes = contRelojes;
-            this.contRelojesEsperaFinalizada = contRelojesEsperaFinalizada;
+            this.contRelojesTerminados = contRelojesTerminados;
             this.acumTiempoRelojSistema = acumTiempoRelojSistema;
             this.listaRelojes = listaRelojes;
         }
