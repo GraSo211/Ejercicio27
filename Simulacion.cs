@@ -82,7 +82,6 @@ namespace Ejercicio27
 
         public void Simular()
         {
-            ListaRelojes.Add(new Reloj(1, "", 0));
 
             int idVectorEstado = 1;
 
@@ -191,7 +190,7 @@ namespace Ejercicio27
                     vE.contRelojes = ContRelojes.ToString();
                     vE.contRelojesTerminados = ContRelojesTerminados.ToString();
                     vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
-                    vE.listaRelojes = ListaRelojes.ToArray().ToList(); 
+                    vE.listaRelojes = ListaRelojes.ToArray().ToList();
                     ListaVectoresEstado.Add(vE);
 
                     iterRestantes--;
@@ -220,13 +219,14 @@ namespace Ejercicio27
             string ruta = "E:\\Proyectos\\sim_final_tp_2\\ResultadosSimulacion.csv";
 
             List<string> csv = new List<string>();
-            string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3";
+            string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3,,,,,,";
             string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,CONT_RELOJES_TERMINADOS,ACUM_TIEMPO_RELOJ_SISTEMA";
-            /* for (int i = 1; i <= cantidadAlumnos; i++)
+            int maxRelojes = ListaVectoresEstado.Max(ve => ve.listaRelojes?.Count ?? 0);
+            for (int i = 1; i <= maxRelojes; i++)
             {
-                header += ", ALUMNO_" + i;
-                subHeader += ",ESTADO";
-            } */
+                header += $",Reloj_{i},";
+                subHeader += ",ESTADO, TIEMPO_LLEGADA";
+            } 
             csv.Add(header);
             csv.Add(subHeader);
 
@@ -237,7 +237,7 @@ namespace Ejercicio27
                 {
                     foreach (Reloj r in vecE.listaRelojes)
                     {
-                        linea += $",{r.Estado},{r.TiempoLlegada},";
+                        linea += $",{r.Estado},{r.TiempoLlegada}";
                     }
                 }
 
@@ -277,8 +277,7 @@ namespace Ejercicio27
         }
     }
 
-
-    public struct VectorEstado
+  public struct VectorEstado
     {
         public int id { get; set; }
         public string eventoActual { get; set; }
