@@ -36,7 +36,7 @@ namespace Ejercicio27
         public static double AcumTiempoRelojSistema { get; set; }
         public static List<Reloj> ListaRelojes { get; set; }
         public static List<Evento> ListaEventos { get; set; }
-        public static double? TiempoValorSobranteNormal { get; set;}
+        public static double? TiempoValorSobranteNormal { get; set; }
         private dynamic EventoActual { get; set; }
 
 
@@ -82,7 +82,7 @@ namespace Ejercicio27
 
         public void Simular()
         {
-            ListaRelojes.Add(new Reloj(1,"",0));
+            ListaRelojes.Add(new Reloj(1, "", 0));
 
             int idVectorEstado = 1;
 
@@ -114,7 +114,7 @@ namespace Ejercicio27
                 contRelojes = ContRelojes.ToString(),
                 contRelojesTerminados = ContRelojesTerminados.ToString(),
                 acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString(),
-                listaRelojes = ListaRelojes
+                listaRelojes = ListaRelojes.ToArray().ToList()
             };
 
 
@@ -123,16 +123,16 @@ namespace Ejercicio27
             EventoInit eventoInit = new EventoInit("init");
             ListaEventos.Add(eventoInit);
             Console.WriteLine(ListaEventos.Count);
-            while (idVectorEstado <=  CANTITERACIONESREALIZAR  +1 )
+            while (idVectorEstado <= CANTITERACIONESREALIZAR + 1)
             {
 
                 // Comienza el sistema
                 // Comenzamos revisando cual es el evento que hay que resolver, para ello buscamos el que suceda mas proximo al reloj actual
-                
+
                 EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
                 // actualizar reloj
                 RelojSimulacion = EventoActual.TiempoFinal;
-                
+
 
                 if (Empleado1.Estado == "Ocupado")
                 {
@@ -191,6 +191,7 @@ namespace Ejercicio27
                     vE.contRelojes = ContRelojes.ToString();
                     vE.contRelojesTerminados = ContRelojesTerminados.ToString();
                     vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
+                    vE.listaRelojes = ListaRelojes.ToArray().ToList(); 
                     ListaVectoresEstado.Add(vE);
 
                     iterRestantes--;
@@ -232,10 +233,14 @@ namespace Ejercicio27
             foreach (VectorEstado vecE in ListaVectoresEstado)
             {
                 string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj},{vecE.rndLlegadaReloj},{vecE.tiempoLlegadaReloj},{vecE.llegadaReloj},{vecE.rnd1FinControlReloj},{vecE.rnd2FinControlReloj},{vecE.tiempo1FinControlReloj},{vecE.tiempo2FinControlReloj},{vecE.finControlRelojEmp1},{vecE.finControlRelojEmp2},{vecE.finControlRelojEmp3},{vecE.rndResultadoControl},{vecE.resultadoControl},{vecE.estadoEmpleado1},{vecE.acumOcupacionEmpleado1},{vecE.estadoEmpleado2},{vecE.acumOcupacionEmpleado2},{vecE.estadoEmpleado3},{vecE.acumOcupacionEmpleado3},{vecE.colaRelojes},{vecE.acumTiempoEsperaReloj},{vecE.contRelojes},{vecE.contRelojesTerminados},{vecE.acumTiempoRelojSistema}";
-                foreach (Reloj r in vecE.listaRelojes)
+                if (vecE.listaRelojes != null && vecE.listaRelojes.Count > 0)
                 {
-                    linea += $"{r.Estado},{r.TiempoLlegada}";
+                    foreach (Reloj r in vecE.listaRelojes)
+                    {
+                        linea += $",{r.Estado},{r.TiempoLlegada},";
+                    }
                 }
+
                 csv.Add(linea);
             }
 
