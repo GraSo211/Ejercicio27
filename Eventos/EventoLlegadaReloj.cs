@@ -47,7 +47,7 @@ public class EventoLlegadaReloj : Evento
             Reloj reloj = new Reloj(Simulacion.ContRelojes + 1, "Siendo_Controlado_Emp1", TiempoFinal);
 
             Simulacion.ListaRelojes.Add(reloj);
-            EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
+            EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
             eventoFinControlReloj.GenerarEvento(ref vE);
             Simulacion.ListaEventos.Add(eventoFinControlReloj);
             Simulacion.Empleado1.PonerseTrabajar(ref vE, 1);
@@ -58,7 +58,7 @@ public class EventoLlegadaReloj : Evento
             Reloj reloj = new Reloj(Simulacion.ContRelojes + 1, "Siendo_Controlado_Emp2", TiempoFinal);
 
             Simulacion.ListaRelojes.Add(reloj);
-            EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
+            EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
             eventoFinControlReloj.GenerarEvento(ref vE);
             Simulacion.ListaEventos.Add(eventoFinControlReloj);
             Simulacion.Empleado2.PonerseTrabajar(ref vE, 2);
@@ -68,7 +68,7 @@ public class EventoLlegadaReloj : Evento
             Reloj reloj = new Reloj(Simulacion.ContRelojes + 1, "Siendo_Controlado_Emp3", TiempoFinal);
 
             Simulacion.ListaRelojes.Add(reloj);
-            EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj("FinControlReloj", reloj);
+            EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
             eventoFinControlReloj.GenerarEvento(ref vE);
             Simulacion.ListaEventos.Add(eventoFinControlReloj);
             Simulacion.Empleado3.PonerseTrabajar(ref vE, 3);

@@ -168,9 +168,19 @@ namespace Ejercicio27
                     vE.tiempoLlegadaReloj = "";
                 }
 
+                //? ACUMULAR TIEMPO ESPERA RELOJES
+                foreach (Reloj r in ColaRelojes)
+                { 
+                    AcumTiempoEsperaReloj += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+                }
+               
+                
+
+
+
                 //? LOGICA DE AGREGAR EL VECTOR ESTADO A LA LISTA PARA LUEGO MOSTRARLO
 
-                int iterRestantes = CANTITERACIONESMOSTRAR;
+                    int iterRestantes = CANTITERACIONESMOSTRAR;
                 if (RelojSimulacion >= MOMENTOMOSTRARSIM)
                 {
 
