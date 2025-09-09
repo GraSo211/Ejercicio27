@@ -151,36 +151,43 @@ namespace Ejercicio27
 
                 }
 
+                //? ACUMULAR TIEMPO ESPERA RELOJES
+                foreach (Reloj r in ColaRelojes)
+                {
+                    AcumTiempoEsperaReloj += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+                }
+
+
+
                 // resolvemos evento
                 ListaEventos.Remove(EventoActual);
                 EventoActual.ResolverEvento(ref vE);
 
-                if (EventoActual.Nombre != "FinControlReloj")
+                if (!EventoActual.Nombre.Contains("FinControlReloj"))
                 {
                     vE.resultadoControl = "";
                     vE.rndResultadoControl = "";
-
+           
 
                 }
-                if (EventoActual.Nombre != "LlegadaReloj")
+                if (EventoActual.Nombre != "LlegadaReloj" && EventoActual.Nombre != "init")
                 {
                     vE.rndLlegadaReloj = "";
                     vE.tiempoLlegadaReloj = "";
                 }
-
-                //? ACUMULAR TIEMPO ESPERA RELOJES
-                foreach (Reloj r in ColaRelojes)
-                { 
-                    AcumTiempoEsperaReloj += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+                else
+                {
+                    
                 }
-               
-                
+
+
+
 
 
 
                 //? LOGICA DE AGREGAR EL VECTOR ESTADO A LA LISTA PARA LUEGO MOSTRARLO
 
-                    int iterRestantes = CANTITERACIONESMOSTRAR;
+                int iterRestantes = CANTITERACIONESMOSTRAR;
                 if (RelojSimulacion >= MOMENTOMOSTRARSIM)
                 {
 
@@ -236,7 +243,7 @@ namespace Ejercicio27
             {
                 header += $",Reloj_{i},";
                 subHeader += ",ESTADO, TIEMPO_LLEGADA";
-            } 
+            }
             csv.Add(header);
             csv.Add(subHeader);
 
@@ -287,7 +294,7 @@ namespace Ejercicio27
         }
     }
 
-  public struct VectorEstado
+    public struct VectorEstado
     {
         public int id { get; set; }
         public string eventoActual { get; set; }
