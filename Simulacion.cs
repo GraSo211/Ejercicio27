@@ -132,31 +132,35 @@ namespace Ejercicio27
                 // EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
                 EventoActual = ListaEventos.Dequeue();
                 // actualizar reloj
-                RelojSimulacion = EventoActual.TiempoFinal;
-
 
                 if (Empleado1.Estado == "Ocupado")
                 {
-                    Empleado1.AcumOcupacion += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+                    Empleado1.AcumOcupacion += Math.Truncate((EventoActual.TiempoFinal - RelojSimulacion) * 100) / 100;
 
                 }
 
                 if (Empleado2.Estado == "Ocupado")
                 {
-                    Empleado2.AcumOcupacion += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+                    Empleado2.AcumOcupacion += Math.Truncate((EventoActual.TiempoFinal - RelojSimulacion) * 100) / 100;
 
                 }
 
                 if (Empleado3.Estado == "Ocupado")
                 {
-                    Empleado3.AcumOcupacion += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
+                    Empleado3.AcumOcupacion += Math.Truncate((EventoActual.TiempoFinal - RelojSimulacion) * 100) / 100;
 
                 }
 
                 //? ACUMULAR TIEMPO ESPERA RELOJES
 
 
-                AcumTiempoEsperaReloj += (RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * ColaRelojes.Count;
+                AcumTiempoEsperaReloj += (EventoActual.TiempoFinal - RelojSimulacion) * ColaRelojes.Count;
+
+                RelojSimulacion = EventoActual.TiempoFinal;
+
+
+
+
 
 
 
