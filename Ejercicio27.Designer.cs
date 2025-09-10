@@ -212,7 +212,7 @@
             AclaracionMomentoMostrarSim.Name = "AclaracionMomentoMostrarSim";
             AclaracionMomentoMostrarSim.Size = new Size(91, 25);
             AclaracionMomentoMostrarSim.TabIndex = 25;
-            AclaracionMomentoMostrarSim.Text = "(Minutos)";
+            AclaracionMomentoMostrarSim.Text = "(Iteracion)";
             // 
             // MomentoMostrarSim
             // 
@@ -233,37 +233,6 @@
             InputMomentoMostrarSim.Size = new Size(100, 27);
             InputMomentoMostrarSim.TabIndex = 23;
             InputMomentoMostrarSim.Text = "0";
-            // 
-            // AclaracionCantIterMostrar
-            // 
-            AclaracionCantIterMostrar.AutoSize = true;
-            AclaracionCantIterMostrar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            AclaracionCantIterMostrar.ForeColor = SystemColors.ControlDark;
-            AclaracionCantIterMostrar.Location = new Point(469, 363);
-            AclaracionCantIterMostrar.Name = "AclaracionCantIterMostrar";
-            AclaracionCantIterMostrar.Size = new Size(101, 25);
-            AclaracionCantIterMostrar.TabIndex = 28;
-            AclaracionCantIterMostrar.Text = "(Cantidad)";
-            // 
-            // CantIterMostrar
-            // 
-            CantIterMostrar.AutoSize = true;
-            CantIterMostrar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            CantIterMostrar.Location = new Point(35, 366);
-            CantIterMostrar.Name = "CantIterMostrar";
-            CantIterMostrar.Size = new Size(300, 25);
-            CantIterMostrar.TabIndex = 27;
-            CantIterMostrar.Text = "Cantidad de Iteraciones a mostrar:";
-            CantIterMostrar.Click += label4_Click;
-            // 
-            // InputCantIterMostrar
-            // 
-            InputCantIterMostrar.Font = new Font("Montserrat", 12F, FontStyle.Bold);
-            InputCantIterMostrar.Location = new Point(357, 363);
-            InputCantIterMostrar.Name = "InputCantIterMostrar";
-            InputCantIterMostrar.Size = new Size(100, 27);
-            InputCantIterMostrar.TabIndex = 26;
-            InputCantIterMostrar.Text = "10000";
             // 
             // AclaracionCantIteracionesRealizar
             // 

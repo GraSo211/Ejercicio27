@@ -1,5 +1,4 @@
-﻿
-using Ejercicio27;
+﻿using Ejercicio27;
 
 using System;
 using System.CodeDom;
@@ -7,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 namespace Ejercicio27
@@ -18,7 +18,7 @@ namespace Ejercicio27
         public static float FINCONTROLRELOJDE { get; set; }
         public static float PORCAPROBCONTROL { get; set; }
         public static int CANTITERACIONESREALIZAR { get; set; }
-        public static float MOMENTOMOSTRARSIM { get; set; }
+        public static int MOMENTOMOSTRARSIM { get; set; }
         public static int CANTITERACIONESMOSTRAR { get; set; }
 
         private List<VectorEstado> ListaVectoresEstado { get; set; }
@@ -35,9 +35,10 @@ namespace Ejercicio27
         public static int ContRelojesTerminados { get; set; }
         public static double AcumTiempoRelojSistema { get; set; }
         public static List<Reloj> ListaRelojes { get; set; }
-        public static List<Evento> ListaEventos { get; set; }
+        //! public static List<Evento> ListaEventos { get; set; }
+        public static PriorityQueue<Evento, double> ListaEventos { get; set; }
         public static double? TiempoValorSobranteNormal { get; set; }
-        private dynamic EventoActual { get; set; }
+        private Evento EventoActual { get; set; }
 
 
         public Simulacion(
@@ -46,8 +47,7 @@ namespace Ejercicio27
             float finControlRelojDE,
             float porcaProbControl,
             int cantIteracionesRealizar,
-            float momentoMostrarSim,
-            int cantIteracionesMostrar
+            int momentoMostrarSim
         )
         {
 
@@ -57,13 +57,14 @@ namespace Ejercicio27
             PORCAPROBCONTROL = porcaProbControl;
             CANTITERACIONESREALIZAR = cantIteracionesRealizar;
             MOMENTOMOSTRARSIM = momentoMostrarSim;
-            CANTITERACIONESMOSTRAR = cantIteracionesMostrar;
+            CANTITERACIONESMOSTRAR = 100;
 
 
             RelojSimulacion = 0;
             ListaVectoresEstado = new List<VectorEstado>();
             ListaRelojes = new List<Reloj>();
-            ListaEventos = new List<Evento>();
+            //! ListaEventos = new List<Evento>();
+            ListaEventos = new PriorityQueue<Evento, double>();
 
             Empleado1 = new Empleado(1, "Empleado_1");
             Empleado2 = new Empleado(2, "Empleado_2");
@@ -120,15 +121,16 @@ namespace Ejercicio27
 
             // Creamos el evento inicial
             EventoInit eventoInit = new EventoInit("init");
-            ListaEventos.Add(eventoInit);
-            Console.WriteLine(ListaEventos.Count);
+            ListaEventos.Enqueue(eventoInit, eventoInit.TiempoFinal);
+            //!ListaEventos.Add(eventoInit);
             while (idVectorEstado <= CANTITERACIONESREALIZAR + 1)
             {
 
                 // Comienza el sistema
                 // Comenzamos revisando cual es el evento que hay que resolver, para ello buscamos el que suceda mas proximo al reloj actual
 
-                EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
+                // EventoActual = ListaEventos.OrderBy(e => e.TiempoFinal).First();
+                EventoActual = ListaEventos.Dequeue();
                 // actualizar reloj
                 RelojSimulacion = EventoActual.TiempoFinal;
 
@@ -152,22 +154,21 @@ namespace Ejercicio27
                 }
 
                 //? ACUMULAR TIEMPO ESPERA RELOJES
-                foreach (Reloj r in ColaRelojes)
-                {
-                    AcumTiempoEsperaReloj += Math.Truncate((RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * 100) / 100;
-                }
+
+
+                AcumTiempoEsperaReloj += (RelojSimulacion - (vE.reloj == "" ? 0 : float.Parse(vE.reloj, CultureInfo.InvariantCulture))) * ColaRelojes.Count;
 
 
 
                 // resolvemos evento
-                ListaEventos.Remove(EventoActual);
+                //ListaEventos.Remove(EventoActual);
                 EventoActual.ResolverEvento(ref vE);
 
                 if (!EventoActual.Nombre.Contains("FinControlReloj"))
                 {
                     vE.resultadoControl = "";
                     vE.rndResultadoControl = "";
-           
+
 
                 }
                 if (EventoActual.Nombre != "LlegadaReloj" && EventoActual.Nombre != "init")
@@ -177,7 +178,7 @@ namespace Ejercicio27
                 }
                 else
                 {
-                    
+
                 }
 
 
@@ -187,8 +188,8 @@ namespace Ejercicio27
 
                 //? LOGICA DE AGREGAR EL VECTOR ESTADO A LA LISTA PARA LUEGO MOSTRARLO
 
-                int iterRestantes = CANTITERACIONESMOSTRAR;
-                if (RelojSimulacion >= MOMENTOMOSTRARSIM)
+
+                if (idVectorEstado >= MOMENTOMOSTRARSIM && CANTITERACIONESMOSTRAR > 0)
                 {
 
                     //TODO: AÑADIR VECTOR ESTADO A MOSTRAR
@@ -207,16 +208,13 @@ namespace Ejercicio27
                     vE.contRelojes = ContRelojes.ToString();
                     vE.contRelojesTerminados = ContRelojesTerminados.ToString();
                     vE.acumTiempoRelojSistema = AcumTiempoRelojSistema.ToString();
-                    vE.listaRelojes = ListaRelojes.ToArray().ToList();
+                    vE.listaRelojes = ListaRelojes.Select(r => new Reloj(r.Id, r.Estado, r.TiempoLlegada)).ToList();
                     ListaVectoresEstado.Add(vE);
 
-                    iterRestantes--;
+                    CANTITERACIONESMOSTRAR--;
                 }
 
-                if (iterRestantes == 0)
-                {
-                    break;
-                }
+
 
 
                 //? INCREMENTAMOS EN UNO EL ID DEL VECTOR DE ESTADO
@@ -232,56 +230,93 @@ namespace Ejercicio27
             // y actualizamos el vector estado
             // las estaddisticas toca agregarlas mas abajo del vector
 
+            // TODO: CALCUALR ESTADISCTICAS
+
+            //? El tiempo medio que debe esperar un reloj antes de ser controlado
+            int cantTotalRelojes = ListaRelojes.Count;
+            double tiempoPromedioEsperaReloj = cantTotalRelojes > 0
+                ? Math.Truncate((AcumTiempoEsperaReloj / cantTotalRelojes) * 100) / 100
+                : 0;
+
+            //? El tiempo total promedio de un reloj en el sistema, desde que entra para ser controlado hasta que sale Ok o fallado
+            double tiempoPromedioRelojSistema = ContRelojesTerminados > 0
+                ? Math.Truncate((AcumTiempoRelojSistema / ContRelojesTerminados) * 100) / 100
+                : 0;
+
+            //? El porcentaje de utilización de cada uno de los operarios que controlan a los relojes.
+            double porcentajeOcupacionEmp1 = (RelojSimulacion > 0)
+                ? Math.Truncate(((Empleado1.AcumOcupacion / RelojSimulacion) * 100) * 100) / 100
+                : 0;
+
+            double porcentajeOcupacionEmp2 = (RelojSimulacion > 0)
+                ? Math.Truncate(((Empleado2.AcumOcupacion / RelojSimulacion) * 100) * 100) / 100
+                : 0;
+
+            double porcentajeOcupacionEmp3 = (RelojSimulacion > 0)
+                ? Math.Truncate(((Empleado3.AcumOcupacion / RelojSimulacion) * 100) * 100) / 100
+                : 0;
+
 
             string ruta = "E:\\Proyectos\\sim_final_tp_2\\ResultadosSimulacion.csv";
 
-            List<string> csv = new List<string>();
             string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3,,,,,,";
             string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,CONT_RELOJES_TERMINADOS,ACUM_TIEMPO_RELOJ_SISTEMA";
             int maxRelojes = ListaVectoresEstado.Max(ve => ve.listaRelojes?.Count ?? 0);
-            for (int i = 1; i <= maxRelojes; i++)
+
+
+            var sb = new StringBuilder(1000000);
+            for (int i = 0; i < maxRelojes; i++)
             {
                 header += $",Reloj_{i},";
                 subHeader += ",ESTADO, TIEMPO_LLEGADA";
             }
-            csv.Add(header);
-            csv.Add(subHeader);
 
-            foreach (VectorEstado vecE in ListaVectoresEstado)
+            sb.AppendLine(header);
+            sb.AppendLine(subHeader);
+
+            foreach (var vecE in ListaVectoresEstado)
             {
-                string linea = $"{vecE.id},{vecE.eventoActual},{vecE.reloj},{vecE.rndLlegadaReloj},{vecE.tiempoLlegadaReloj},{vecE.llegadaReloj},{vecE.rnd1FinControlReloj},{vecE.rnd2FinControlReloj},{vecE.tiempo1FinControlReloj},{vecE.tiempo2FinControlReloj},{vecE.finControlRelojEmp1},{vecE.finControlRelojEmp2},{vecE.finControlRelojEmp3},{vecE.rndResultadoControl},{vecE.resultadoControl},{vecE.estadoEmpleado1},{vecE.acumOcupacionEmpleado1},{vecE.estadoEmpleado2},{vecE.acumOcupacionEmpleado2},{vecE.estadoEmpleado3},{vecE.acumOcupacionEmpleado3},{vecE.colaRelojes},{vecE.acumTiempoEsperaReloj},{vecE.contRelojes},{vecE.contRelojesTerminados},{vecE.acumTiempoRelojSistema}";
-                if (vecE.listaRelojes != null && vecE.listaRelojes.Count > 0)
+                var linea = new StringBuilder(1000);
+                linea.Append($"{vecE.id},{vecE.eventoActual},{vecE.reloj},{vecE.rndLlegadaReloj},{vecE.tiempoLlegadaReloj},{vecE.llegadaReloj},{vecE.rnd1FinControlReloj},{vecE.rnd2FinControlReloj},{vecE.tiempo1FinControlReloj},{vecE.tiempo2FinControlReloj},{vecE.finControlRelojEmp1},{vecE.finControlRelojEmp2},{vecE.finControlRelojEmp3},{vecE.rndResultadoControl},{vecE.resultadoControl},{vecE.estadoEmpleado1},{vecE.acumOcupacionEmpleado1},{vecE.estadoEmpleado2},{vecE.acumOcupacionEmpleado2},{vecE.estadoEmpleado3},{vecE.acumOcupacionEmpleado3},{vecE.colaRelojes},{vecE.acumTiempoEsperaReloj},{vecE.contRelojes},{vecE.contRelojesTerminados},{vecE.acumTiempoRelojSistema}");
+
+                if (vecE.listaRelojes != null)
                 {
-                    foreach (Reloj r in vecE.listaRelojes)
+                    for (int i = 0; i < maxRelojes; i++)
                     {
-                        linea += $",{r.Estado},{r.TiempoLlegada}";
+
+                        if (i < vecE.listaRelojes.Count)
+                        {
+                            var r = vecE.listaRelojes[i];
+                            linea.Append($",{r.Estado},{r.TiempoLlegada}");
+                        }
+                        else
+                        {
+                            linea.Append(",,");
+                        }
                     }
                 }
 
-                csv.Add(linea);
+                sb.AppendLine(linea.ToString());
             }
 
 
-            // TODO: CALCUALR ESTADISCTICAS
-            /*  csv.Add("");
-             csv.Add("");
-             csv.Add(",Resultados");
-             float resultado = 0;
-             if (contAlumnosAprobados != 0) resultado = acumTiempoTotalExamenAlumnosAprobados / contAlumnosAprobados;
-             csv.Add($",Tiempo promedio de examen de los alumnos, {resultado} ");
-             csv.Add(",desde que inician el práctico ");
-             csv.Add(",hasta que terminan el teórico"); */
+
+            sb.AppendLine("");
+            sb.AppendLine("");
+
+            sb.AppendLine(",Resultados");
+            sb.AppendLine($",Tiempo Medio Espera Reloj, {tiempoPromedioEsperaReloj} ");
+            sb.AppendLine($",Tiempo Medio Reloj Sistema, {tiempoPromedioRelojSistema} ");
+            sb.AppendLine($",Porcentaje Ocupacion Empleado 1, {porcentajeOcupacionEmp1} ");
+            sb.AppendLine($",Porcentaje Ocupacion Empleado 2, {porcentajeOcupacionEmp2} ");
+            sb.AppendLine($",Porcentaje Ocupacion Empleado 3, {porcentajeOcupacionEmp3} ");
 
 
-            try
+            using (var writer = new StreamWriter(ruta, false, Encoding.UTF8, 65536))
             {
-                File.WriteAllLines(ruta, csv, Encoding.UTF8);
-                Process.Start("explorer.exe", @"E:\Proyectos\sim_final_tp_2\ResultadosSimulacion.csv");
+                writer.Write(sb.ToString());
             }
-            catch (Exception IOException)
-            {
-                // NO HACEMOS NADA XD
-            }
+            Process.Start("explorer.exe", @"E:\Proyectos\sim_final_tp_2\ResultadosSimulacion.csv");
 
 
 

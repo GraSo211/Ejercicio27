@@ -59,10 +59,9 @@ namespace Ejercicio27
             float FinControlRelojDE = float.Parse(this.InputFinControlRelojDE.Text);
             float PorcAprobControl = float.Parse(this.InputPorcAprobReloj.Text);
             int CantIteracionesRealizar = int.Parse(this.InputCantIteracionesRealizar.Text);
-            float MomentoMostrarSim = float.Parse(this.InputMomentoMostrarSim.Text);
-            int CantIteracionMostrar = int.Parse(this.InputCantIterMostrar.Text);
+            int MomentoMostrarSim = int.Parse(this.InputMomentoMostrarSim.Text);
 
-            Simulacion simulacion = new Simulacion(LlegadaRelojMedia, FinControlRelojMedia, FinControlRelojDE, PorcAprobControl, CantIteracionesRealizar, MomentoMostrarSim, CantIteracionMostrar);
+            Simulacion simulacion = new Simulacion(LlegadaRelojMedia, FinControlRelojMedia, FinControlRelojDE, PorcAprobControl, CantIteracionesRealizar, MomentoMostrarSim);
             simulacion.Simular();
 
         }

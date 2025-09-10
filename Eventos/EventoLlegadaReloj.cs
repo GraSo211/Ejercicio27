@@ -38,7 +38,8 @@ public class EventoLlegadaReloj : Evento
         // GENERAR LLEGADA PROXIMA
         Evento eventoLlegada = new EventoLlegadaReloj("LlegadaReloj");
         eventoLlegada.GenerarEvento(ref vE);
-        Simulacion.ListaEventos.Add(eventoLlegada);
+        //Simulacion.ListaEventos.Add(eventoLlegada);
+        Simulacion.ListaEventos.Enqueue(eventoLlegada, eventoLlegada.TiempoFinal);
 
         // RESOLVER LLEGADA ACTUAL
         // Crear Reloj
@@ -49,7 +50,8 @@ public class EventoLlegadaReloj : Evento
             Simulacion.ListaRelojes.Add(reloj);
             EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
             eventoFinControlReloj.GenerarEvento(ref vE);
-            Simulacion.ListaEventos.Add(eventoFinControlReloj);
+            //Simulacion.ListaEventos.Add(eventoFinControlReloj);
+            Simulacion.ListaEventos.Enqueue(eventoFinControlReloj, eventoFinControlReloj.TiempoFinal);
             Simulacion.Empleado1.PonerseTrabajar(ref vE, 1);
 
         }
@@ -60,7 +62,8 @@ public class EventoLlegadaReloj : Evento
             Simulacion.ListaRelojes.Add(reloj);
             EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
             eventoFinControlReloj.GenerarEvento(ref vE);
-            Simulacion.ListaEventos.Add(eventoFinControlReloj);
+            //Simulacion.ListaEventos.Add(eventoFinControlReloj);
+            Simulacion.ListaEventos.Enqueue(eventoFinControlReloj, eventoFinControlReloj.TiempoFinal);
             Simulacion.Empleado2.PonerseTrabajar(ref vE, 2);
         }
         else if (Simulacion.Empleado3.Estado == "Libre")
@@ -70,7 +73,8 @@ public class EventoLlegadaReloj : Evento
             Simulacion.ListaRelojes.Add(reloj);
             EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
             eventoFinControlReloj.GenerarEvento(ref vE);
-            Simulacion.ListaEventos.Add(eventoFinControlReloj);
+            //Simulacion.ListaEventos.Add(eventoFinControlReloj);
+            Simulacion.ListaEventos.Enqueue(eventoFinControlReloj, eventoFinControlReloj.TiempoFinal);
             Simulacion.Empleado3.PonerseTrabajar(ref vE, 3);
         }
         else

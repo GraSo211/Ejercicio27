@@ -123,7 +123,8 @@ public class EventoFinControlReloj : Evento
                 reloj.Estado = "Siendo_Controlado_Emp1";
                 EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
                 eventoFinControlReloj.GenerarEvento(ref vE);
-                Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                //Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                Simulacion.ListaEventos.Enqueue(eventoFinControlReloj, eventoFinControlReloj.TiempoFinal);
                 Simulacion.Empleado1.PonerseTrabajar(ref vE, 1);
             }
             string resultado = GenerarResultadoControl(ref vE);
@@ -141,7 +142,8 @@ public class EventoFinControlReloj : Evento
                 reloj.Estado = "Siendo_Controlado_Emp2";
                 EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
                 eventoFinControlReloj.GenerarEvento(ref vE);
-                Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                //Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                Simulacion.ListaEventos.Enqueue(eventoFinControlReloj, eventoFinControlReloj.TiempoFinal);
                 Simulacion.Empleado2.PonerseTrabajar(ref vE, 2);
             }
             string resultado = GenerarResultadoControl(ref vE);
@@ -159,7 +161,8 @@ public class EventoFinControlReloj : Evento
                 reloj.Estado = "Siendo_Controlado_Emp3";
                 EventoFinControlReloj eventoFinControlReloj = new EventoFinControlReloj($"FinControlReloj_{reloj.Id}", reloj);
                 eventoFinControlReloj.GenerarEvento(ref vE);
-                Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                //Simulacion.ListaEventos.Add(eventoFinControlReloj);
+                Simulacion.ListaEventos.Enqueue(eventoFinControlReloj, eventoFinControlReloj.TiempoFinal);
                 Simulacion.Empleado3.PonerseTrabajar(ref vE, 3);
             }
             string resultado = GenerarResultadoControl(ref vE);
