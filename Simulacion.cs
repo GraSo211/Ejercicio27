@@ -261,7 +261,7 @@ namespace Ejercicio27
                 : 0;
 
 
-            string ruta = "E:\\Proyectos\\sim_final_tp_2\\ResultadosSimulacion.csv";
+            string ruta = "C:\\proyectos\\Ejercicio27\\resultados\\ResultadosSimulacion.csv";
 
             string header = ",,,LLEGADA_RELOJ,,,FIN_CONTROL_RELOJ,,,,,,,RESULTADO_DE_CONTROL,,EMPLEADO_1,,EMPLEADO_2,,EMPLEADO_3,,,,,,";
             string subHeader = "NRO,EVENTO,RELOJ,RND,TIEMPO,LLEGADA_RELOJ,RND1,RND2,TIEMPO1,TIEMPO2,FIN_CONTROL_EMP1,FIN_CONTROL_EMP2,FIN_CONTROL_EMP3,RND,RESULTADO,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,ESTADO,ACUM_OCUPACION,COLA_RELOJES,ACUM_TIEMPO_ESPERA_RELOJ,CONT_RELOJES,CONT_RELOJES_TERMINADOS,ACUM_TIEMPO_RELOJ_SISTEMA";
@@ -320,7 +320,7 @@ namespace Ejercicio27
             {
                 writer.Write(sb.ToString());
             }
-            Process.Start("explorer.exe", @"E:\Proyectos\sim_final_tp_2\ResultadosSimulacion.csv");
+            Process.Start("explorer.exe", "C:\\proyectos\\Ejercicio27\\resultados\\ResultadosSimulacion.csv");
 
 
 
