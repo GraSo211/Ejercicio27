@@ -264,7 +264,7 @@
             InputCantIteracionesRealizar.Name = "InputCantIteracionesRealizar";
             InputCantIteracionesRealizar.Size = new Size(100, 27);
             InputCantIteracionesRealizar.TabIndex = 29;
-            InputCantIteracionesRealizar.Text = "100000";
+            InputCantIteracionesRealizar.Text = "1000";
             InputCantIteracionesRealizar.TextChanged += textBox1_TextChanged_1;
             // 
             // SIMULACION
